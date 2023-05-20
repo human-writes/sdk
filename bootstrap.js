@@ -11,4 +11,4 @@ export default function index() {
     return new F()
 }
 
-index.declare()
+index().declare()
