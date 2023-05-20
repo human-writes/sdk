@@ -1,4 +1,3 @@
-
 import CodeWriter from "./code-writer.class.mjs"
 
 export default class CodeWriterComponent extends HTMLElement {
@@ -57,12 +56,12 @@ textarea {
 </style>
 
 <div class="code-snippet">
-<div class="to-be-copied">
-    <pre id="to-copy"><code></code></pre>
-</div>
-<div class="to-be-written">
-    <pre id="to-write"><code></code></pre>
-</div>
+    <div class="to-be-copied">
+        <pre id="to-copy"><code></code></pre>
+    </div>
+    <div class="to-be-written">
+        <pre id="to-write"><code></code></pre>
+    </div>
 </div>
 `
 
@@ -135,4 +134,3 @@ textarea {
         cw.writeLikeAHuman('to-copy', 'to-write')
     }
 }
-
