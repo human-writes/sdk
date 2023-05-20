@@ -1,9 +1,9 @@
 {
   "name":"human-writes",
   "version": "0.5.3",
-  "description": "Write code like a human",
+  "description": "Write code snippet like a human",
   "main": "index.js",
-  "repository": "git@github.com:ephect-io/code-writer.git",
+  "repository": "git@github.com:ephect-io/human-writes.git",
   "author": "David Blanchard <dpjb@hotmail.fr>",
   "license": "MIT",
   "scripts": {
