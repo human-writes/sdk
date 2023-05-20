@@ -1,6 +1,6 @@
 import TextWriter from "./text-writer.class.mjs"
 
-class TextWriterComponent extends HTMLElement {
+export default class TextWriterComponent extends HTMLElement {
 
     constructor() {
         super();
