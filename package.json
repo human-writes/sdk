@@ -2,7 +2,7 @@
   "name":"human-writes",
   "version": "0.5.34",
   "description": "Write code snippet like a human",
-  "main": "index.js",
+  "main": "bootstrap.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
   "author": "David Blanchard <dpjb@hotmail.fr>",
   "license": "MIT",
