@@ -30,21 +30,24 @@ export default class TextWriterComponent extends HTMLElement {
          */
         return ['text']
     }
+
     get text() {
         return this.getAttribute('text') ?? null
     }
 
-    get styles () {
+    get styles() {
         return this.getAttribute('styles') ?? null
     }
-    get classes () {
+
+    get classes() {
         return this.getAttribute('classes') ?? null
     }
+
     async connectedCallback() {
         /**
          * The magic starts here
          */
-        if(this.styles !== null && this.classes !== null) {
+        if (this.styles !== null && this.classes !== null) {
             const $styleList = this.styles.split(',')
 
             $styleList.forEach($item => {

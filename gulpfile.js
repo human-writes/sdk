@@ -18,7 +18,7 @@ gulp.task('default', function () {
                     filename: 'bundle.js'
                 },
 
-                module:{
+                module: {
                     rules: [{
                         test: /\.mjs$/,
                         exclude: /(node_modules)/,

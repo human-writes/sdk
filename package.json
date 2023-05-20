@@ -11,14 +11,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
+    "@babel/eslint-parser": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
     "babel-loader": "^9.1.2",
+    "eslint": "^8.41.0",
+    "glob-parent": "^6.0.2",
     "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "prettier": "^2.8.8",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
     "webpack-stream": "^7.0.0"
-  },
-  "dependencies": {
-    "gulp-cli": "^2.3.0"
   }
 }

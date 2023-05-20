@@ -221,23 +221,23 @@ export default class CodeWriter {
                 continue
             }
 
-            if(decomposer.phraseStarts.length && decomposer.phraseStarts[0] === i) {
+            if (decomposer.phraseStarts.length && decomposer.phraseStarts[0] === i) {
                 const phraseLen = decomposer.phraseLengths[0]
-                for(let j = 0; j < phraseLen; j++) {
+                for (let j = 0; j < phraseLen; j++) {
                     const pos = i + j
                     const mistakeIndex = decomposer.mistakeCursors.indexOf(pos)
                     c = workingText[pos]
-                    if(mistakeIndex > -1) {
+                    if (mistakeIndex > -1) {
                         await addChar(decomposer.mistakes[mistakeIndex])
                     } else {
                         await addChar(c)
                     }
 
-                    if(decomposer.wordEnds.includes(pos) && decomposer.mistakeCursors.length) {
+                    if (decomposer.wordEnds.includes(pos) && decomposer.mistakeCursors.length) {
                         const cursor = decomposer.mistakeCursors[0]
-                        if(cursor <= pos) {
+                        if (cursor <= pos) {
                             const subLen = pos - cursor + 1
-                            for(let k = 0; k < subLen; k++) {
+                            for (let k = 0; k < subLen; k++) {
                                 await delChar()
                                 j--
                             }

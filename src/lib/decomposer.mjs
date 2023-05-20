@@ -19,7 +19,7 @@ export default class Decomposer {
         this.#workingText = this.#text + "\n<Eof />"
 
         this.protect()
-        if(doMarkUpQuotes) {
+        if (doMarkUpQuotes) {
             this.markupQuotes()
         }
 
@@ -394,7 +394,7 @@ export default class Decomposer {
 
             const expression = {}
             expression.text = matches[0]
-            expression.startsAt =  matches.index
+            expression.startsAt = matches.index
             expression.endsAt = expression.startsAt + matches[0].length - 1
 
             result.push(expression)
@@ -414,7 +414,7 @@ export default class Decomposer {
 
         this.#words.forEach(item => {
             i++
-            if(i % probability !== 0 || item.text.length < 4) {
+            if (i % probability !== 0 || item.text.length < 4) {
                 return
             }
             const needleCharPos = Math.ceil(Math.random() * item.text.length) - 1
@@ -432,7 +432,7 @@ export default class Decomposer {
 
         this.#mistakes.forEach(item => {
             const begin = text.substring(0, item.startsAt)
-            const end  = text.substring(item.endsAt + 1)
+            const end = text.substring(item.endsAt + 1)
             text = begin + item.text + end
         })
 

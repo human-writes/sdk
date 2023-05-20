@@ -93,6 +93,7 @@ textarea {
     get theme() {
         return this.getAttribute('theme') ?? null
     }
+
     get language() {
         return this.getAttribute('language') ?? null
     }
@@ -102,7 +103,7 @@ textarea {
          * Integrate styles and apply classes
          */
 
-        if(this.useHighlightJs) {
+        if (this.useHighlightJs) {
             const $theme = this.theme ?? 'base16/monokai'
             const $language = this.language ?? 'html'
 
@@ -122,7 +123,7 @@ textarea {
             })
 
             const $parentDiv = await this.shadowRoot.querySelectorAll('code')
-            for(const node of $parentDiv) {
+            for (const node of $parentDiv) {
                 node.setAttribute('class', 'language-' + $language)
             }
         }
