@@ -1,6 +1,6 @@
 {
   "name":"human-writes",
-  "version": "0.5.35",
+  "version": "0.5.36",
   "description": "Write code snippet like a human",
   "main": "bootstrap.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
