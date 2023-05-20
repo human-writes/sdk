@@ -4,7 +4,7 @@ import CodeWriter from "./code-writer.class.mjs"
 /**
  * Rename the component
  */
-class CodeWriterComponent extends HTMLElement {
+export default class CodeWriterComponent extends HTMLElement {
 
     constructor() {
         super();
