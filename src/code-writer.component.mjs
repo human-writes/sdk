@@ -1,4 +1,3 @@
-
 import CodeWriter from "./code-writer.class.mjs"
 
 export default class CodeWriterComponent extends HTMLElement {
@@ -57,12 +56,12 @@ textarea {
 </style>
 
 <div class="code-snippet">
-<div class="to-be-copied">
-    <pre id="to-copy"><code></code></pre>
-</div>
-<div class="to-be-written">
-    <pre id="to-write"><code></code></pre>
-</div>
+    <div class="to-be-copied">
+        <pre id="to-copy"><code></code></pre>
+    </div>
+    <div class="to-be-written">
+        <pre id="to-write"><code></code></pre>
+    </div>
 </div>
 `
 
@@ -94,6 +93,7 @@ textarea {
     get theme() {
         return this.getAttribute('theme') ?? null
     }
+
     get language() {
         return this.getAttribute('language') ?? null
     }
@@ -103,7 +103,7 @@ textarea {
          * Integrate styles and apply classes
          */
 
-        if(this.useHighlightJs) {
+        if (this.useHighlightJs) {
             const $theme = this.theme ?? 'base16/monokai'
             const $language = this.language ?? 'html'
 
@@ -123,7 +123,7 @@ textarea {
             })
 
             const $parentDiv = await this.shadowRoot.querySelectorAll('code')
-            for(const node of $parentDiv) {
+            for (const node of $parentDiv) {
                 node.setAttribute('class', 'language-' + $language)
             }
         }
@@ -135,4 +135,3 @@ textarea {
         cw.writeLikeAHuman('to-copy', 'to-write')
     }
 }
-

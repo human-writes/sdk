@@ -7,17 +7,16 @@ const CLOSE_TAG = '>'
 const TERMINATOR = '/'
 const LF = "\n"
 
-export default class CodeWriter {
+export default class TextWriter {
     #parent = null
 
     constructor(parent) {
         this.#parent = parent
     }
 
-    async writeLikeAHuman(source, target) {
+    async writeLikeAHuman(target) {
 
-        const sourceComponent = this.#parent.shadowRoot.querySelector('pre#' + source + ' code')
-        const targetComponent = this.#parent.shadowRoot.querySelector('pre#' + target + ' code')
+        const targetComponent = this.#parent.shadowRoot.querySelector('div#' + target)
         const speed = 60
         let reg = []
         let indents
@@ -33,6 +32,7 @@ export default class CodeWriter {
         let toUnshift = []
         let toUnshiftHasLF = []
         let indentCount = 0
+        let lastWordEnd = 0
 
         function delay(milliseconds) {
             return new Promise(resolve => {
@@ -48,15 +48,13 @@ export default class CodeWriter {
 
             html += c
             targetComponent.innerHTML = html + tail
-            if (window['hljs'] !== undefined) {
-                hljs.highlightElement(targetComponent)
-            }
 
             await delay(speed)
         }
 
         async function delChar() {
             let tail = reg.join("")
+
 
             html = html.substring(0, html.length - 1)
             targetComponent.innerHTML = html + tail
@@ -108,7 +106,7 @@ export default class CodeWriter {
         async function loadText(url) {
             let text = ''
             await fetch(url).then(response => response.text()).then((html) => {
-                text = html.trim()
+                text = html
             })
 
             return text
@@ -187,41 +185,47 @@ export default class CodeWriter {
             return result
         }
 
+        async function doCorrection(index) {
+            const cursor = decomposer.mistakeCursors[0]
+            if (cursor < lastWordEnd) {
+                const subLen = lastWordEnd - cursor + 1
+                for (let j = 0; j < subLen; j++) {
+                    await delChar()
+                }
+
+                decomposer.mistakeCursors.shift()
+
+            }
+
+            lastWordEnd = 0
+        }
+
         let codeSource = this.#parent.getAttribute("source") ?? ''
 
-        if (window['hljs'] !== undefined) {
-            hljs.highlightElement(sourceComponent);
-        }
         text = await loadText(codeSource)
 
         // Seek and destroy indents
         indents = parseIndents(text)
         text = deleteIndents(text)
 
-        const decomposer = new Decomposer(text, true)
+        const decomposer = new Decomposer(text)
+
         decomposer.doComponents()
         nodes = [...decomposer.list]
 
         workingText = decomposer.workingText.replace(LF + ENCODED_OPEN_TAG + 'Eof ' + TERMINATOR + ENCODED_CLOSE_TAG, '')
 
-        const emptyText = makeEmptyText(workingText)
-        sourceComponent.innerHTML = emptyText
-
         const firstIndent = indents[indentCount] ?? ''
         await addChar(firstIndent)
         indentCount++
+        node = null
 
         for (let i = 0; i < workingText.length; i++) {
 
             let c = workingText[i]
 
-            if (c === OPEN_TAG) {
-                c = ENCODED_OPEN_TAG
-                await addChar(c)
-                continue
-            }
-
             if (decomposer.phraseStarts.length && decomposer.phraseStarts[0] === i) {
+
                 const phraseLen = decomposer.phraseLengths[0]
                 for (let j = 0; j < phraseLen; j++) {
                     const pos = i + j
@@ -229,11 +233,13 @@ export default class CodeWriter {
                     c = workingText[pos]
                     if (mistakeIndex > -1) {
                         await addChar(decomposer.mistakes[mistakeIndex])
+
                     } else {
                         await addChar(c)
                     }
 
                     if (decomposer.wordEnds.includes(pos) && decomposer.mistakeCursors.length) {
+
                         const cursor = decomposer.mistakeCursors[0]
                         if (cursor <= pos) {
                             const subLen = pos - cursor + 1
@@ -243,8 +249,10 @@ export default class CodeWriter {
                             }
 
                             decomposer.mistakeCursors.shift()
+
                         }
                     }
+
                 }
 
                 decomposer.phraseStarts.shift()
@@ -288,36 +296,6 @@ export default class CodeWriter {
                 continue
             }
 
-            if (c === '/' && next5chars === TERMINATOR + ENCODED_CLOSE_TAG) {
-
-                if (node !== null && !node.hasCloser && node.endsAt === i + 4) {
-                    c = TERMINATOR + ENCODED_CLOSE_TAG
-                    shift()
-                    await addChar(c);
-                    i += 4
-                    continue
-                }
-            }
-
-
-            // In case of a "greater than" character
-            // potentially closing a single parsed tag
-            if (c === '&' && next4chars === ENCODED_CLOSE_TAG) {
-
-                if (node !== null && node.endsAt === i + 3) {
-                    shift()
-
-                    await addChar(ENCODED_CLOSE_TAG)
-                    if (node.hasCloser) {
-                        nextUnshift()
-                    }
-                    i += 3
-
-                    continue
-                }
-
-            }
-
             // In case of a "lower than" character
             // potentially closing an open parsed tag
             if (c === '&' && next5chars === ENCODED_OPEN_TAG + TERMINATOR) {
@@ -328,7 +306,7 @@ export default class CodeWriter {
                     node = findLastNodeOfDepth(depth - 1)
                 }
 
-                c = node.closer.text
+                c = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG
                 let {word, translated} = decomposer.translateBracket(c, node.name, true)
 
                 c = word
@@ -371,8 +349,10 @@ export default class CodeWriter {
                 // the start of a parsed tag
                 if (node.startsAt !== i) {
                     // Write it and prevent taking the next node
-                    await addChar(ENCODED_OPEN_TAG)
-                    i += 3
+                    c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG)
+                    c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG)
+
+                    await addChar(c)
                     node.dirty = false
                     continue
                 }
@@ -383,7 +363,9 @@ export default class CodeWriter {
                 let hasLF = false
                 let unshifted = ''
 
-                c = node.text
+                c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG)
+                c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG)
+
                 // Is the tag name a bracket?
                 let {word, translated} = decomposer.translateBracket(c, node.name)
                 c = word
@@ -392,7 +374,7 @@ export default class CodeWriter {
                 if (node.hasCloser) {
                     depth++
 
-                    unshifted = node.closer.text
+                    unshifted = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG
 
                     // Is the tag name a bracket?
                     let {word, translated} = decomposer.translateBracket(unshifted, node.name, true)
@@ -429,15 +411,19 @@ export default class CodeWriter {
                     // Does the tag string contain an LF character?
                     hasLF = node.text.indexOf(LF) > -1
 
-                    c = ENCODED_OPEN_TAG
-                    i += 3
-                    unshifted = ENCODED_CLOSE_TAG
+                    c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG)
+                    c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG)
+
+                    i += node.text.length - 1
+                    unshifted = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG
+
                     if (hasLF) {
                         unshift(LF + lastIndent + unshifted)
                     } else {
                         unshift(unshifted)
                     }
                 }
+
 
                 // Write the actual string
                 // and continue to the next character
@@ -461,11 +447,9 @@ export default class CodeWriter {
                 indentCount++
 
                 await addChar(lastLineFeed, reg0 === nextString)
-                continue
+
             }
 
-            // Write any character not matching the cases above
-            await addChar(c)
         }
 
         // Set back the code text in pure HTML
@@ -480,5 +464,4 @@ export default class CodeWriter {
         })
         this.#parent.dispatchEvent(finishedEvent)
     }
-
 }
