@@ -1,9 +1,6 @@
 
 import CodeWriter from "./code-writer.class.mjs"
 
-/**
- * Rename the component
- */
 export default class CodeWriterComponent extends HTMLElement {
 
     constructor() {
@@ -139,4 +136,3 @@ textarea {
     }
 }
 
-customElements.define('code-writer', CodeWriterComponent);
