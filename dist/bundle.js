@@ -16,7 +16,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ index)\n/* harmony export */ });\n/* harmony import */ var _src_code_writer_component_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/code-writer.component.mjs */ \"./src/code-writer.component.mjs\");\n\n\nfunction index() {\n    const F = function() {\n\n    } \n    F.prototype.declare = function() {\n        customElements.define('code-writer', _src_code_writer_component_mjs__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n    }\n\n    return new F()\n}\n\nindex.declare()\n\n\n//# sourceURL=webpack://human-writes/./bootstrap.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ index)\n/* harmony export */ });\n/* harmony import */ var _src_code_writer_component_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/code-writer.component.mjs */ \"./src/code-writer.component.mjs\");\n\n\nfunction index() {\n    const F = function() {\n\n    } \n    F.prototype.declare = function() {\n        customElements.define('code-writer', _src_code_writer_component_mjs__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n    }\n\n    return new F()\n}\n\nindex().declare()\n\n\n//# sourceURL=webpack://human-writes/./bootstrap.js?");
 
 /***/ }),
 
