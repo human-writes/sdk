@@ -1,14 +1,3 @@
-export function helloWorld() {
-  const message = 'Hello World from my example modern npm package!';
-  return message;
-}
+import CodeWriterComponent from "./src/code-writer.mjs"
 
-export function goodBye() {
-  const message = 'Goodbye from my example modern npm package!';
-  return message;
-}
-
-export default {
-  helloWorld,
-  goodBye,
-};
+module.exports = CodeWriterComponent
