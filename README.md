@@ -39,7 +39,7 @@ The module is built with webpack so you can find the actual script in _node_modu
 You can also find the script on the official site https://human-writes/latest/human-writes.js.
 
 ```html
-<script src="https://human-writes/latest/human-writes.js"></script>
+<script src="https://human-writes.io/latest/human-writes.js"></script>
 ```
 
 ## Use cases
