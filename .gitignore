@@ -2,3 +2,7 @@ node_modules
 .npmrc
 .idea/
 .eslintrc
+.editorconfig
+.gitattributes
+.yarnrc.yml
+.yarn
