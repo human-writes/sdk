@@ -25,6 +25,7 @@ export default class CodeWriter {
     const targetComponent = this.#parent.shadowRoot.querySelector(`pre#${target} code`);
     const speed = 60;
     let reg = [];
+    let indents;
     let html = "";
     let lastIndent = "";
     let lastLineFeed = "";
@@ -77,13 +78,13 @@ export default class CodeWriter {
       reg = Object.values(reg);
     }
 
-    function parseIndents(text) {
+    function parseIndents(indentedHtml) {
       const result = [];
       const regex = /^([^\S][ \s]+)*/mg;
 
       let matches;
 
-      while ((matches = regex.exec(text)) !== null) {
+      while ((matches = regex.exec(indentedHtml)) !== null) {
         if (matches.index === regex.lastIndex) {
           regex.lastIndex++;
         }
@@ -160,21 +161,21 @@ export default class CodeWriter {
       }
     }
 
-    function findLastNodeOfDepth(nodoDepth) {
+    function findLastNodeOfDepth(depth) {
       let result = null;
       if (!stack.length) {
         return result;
       }
 
       result = lastNode();
-      if (nodoDepth === result.depth) {
+      if (depth === result.depth) {
         return result;
       }
 
       let isFound = false;
       for (let i = stack.length - 1; i > -1; i--) {
         result = stack[i];
-        if (nodoDepth === result.depth) {
+        if (depth === result.depth) {
           isFound = true;
           break;
         }
@@ -189,12 +190,12 @@ export default class CodeWriter {
     const codeSource = this.#parent.getAttribute("source") ?? "";
 
     if (window.hljs !== undefined) {
-      window.hljs.highlightElement(sourceComponent);
+      hljs.highlightElement(sourceComponent);
     }
     text = await loadText(codeSource);
 
     // Seek and destroy indents
-    const indents = parseIndents(text);
+    indents = parseIndents(text);
     text = deleteIndents(text);
 
     const decomposer = new Decomposer(text, true);
@@ -258,7 +259,7 @@ export default class CodeWriter {
       // In the case of a closing quote
       if (c === "&" && next5chars === "&oq;/") {
         const name = workingText.substring(i + 5, i + 6);
-        const { word } = decomposer.translateBracket(c, name);
+        const { word, translated } = decomposer.translateBracket(c, name);
         shift();
         await addChar(word);
         i += 9;
@@ -267,7 +268,7 @@ export default class CodeWriter {
       // In the case of an opening quote
       if (c === "&" && next4chars === "&oq;") {
         const name = workingText.substring(i + 4, i + 5);
-        const { word } = decomposer.translateBracket(c, name);
+        const { word, translated } = decomposer.translateBracket(c, name);
         unshift(word);
         await addChar(word);
         i += 8;
@@ -321,8 +322,8 @@ export default class CodeWriter {
           node = findLastNodeOfDepth(depth - 1);
         }
 
-        c = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
-        const { word } = decomposer.translateBracket(c, node.name, true);
+        c = node.closer.text;
+        const { word, translated } = decomposer.translateBracket(c, node.name, true);
 
         c = word;
 
@@ -375,10 +376,7 @@ export default class CodeWriter {
 
         c = node.text;
         // Is the tag name a bracket?
-        const {
-          word,
-          translated,
-        } = decomposer.translateBracket(c, node.name);
+        const { word, translated } = decomposer.translateBracket(c, node.name);
         c = word;
 
         // Is it an open tag?
@@ -388,10 +386,7 @@ export default class CodeWriter {
           unshifted = node.closer.text;
 
           // Is the tag name a bracket?
-          const {
-            word,
-            translated,
-          } = decomposer.translateBracket(unshifted, node.name, true);
+          const { word, translated } = decomposer.translateBracket(unshifted, node.name, true);
           unshifted = word;
 
           // Does the tag body contain an LF character?
