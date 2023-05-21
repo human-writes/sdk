@@ -36,7 +36,7 @@ The module is built with webpack so you can find the actual script in _node_modu
 
 ### As a script in a page
 
-You can also find the script on the official site https://human-writes/latest/human-writes.js.
+You can also find the script on the official site https://human-writes.io/latest/human-writes.js.
 
 ```html
 <script src="https://human-writes.io/latest/human-writes.js"></script>
