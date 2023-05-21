@@ -6,17 +6,17 @@ HumanWrites is a package embedding 2 webcomponents TextWriter and CodeWriter whi
 
 ### Features
 
-TextWriter writes raw and HTML text, when an HTML is found the style of this tag is applied to the text.
+TextWriter writes raw and HTML text, when an HTML tag is found the style of this tag is applied to the text.
 
-CodeWriter writer HTML text inside a _pre_ tag embedding a _code_ for the decoration. When a tag is found it's written as is and not interpreted.
+CodeWriter writes HTML text inside a _pre_ tag embedding a _code_ tag for the decoration. When a tag is found it is written as is and not interpreted.
 
-CodeWriter supports code highlighting thanks to HighlightJS library integration.
+CodeWriter supports code highlighting thanks to HighlightJS library integration. All resources of the HighlightJS library are requested inside the webcomponent, so you do not have to worry about them.
 
-Both component also propose to:
+Both components also propose to:
 - make mistakes :angry:
 - correct mistakes right away :smile:
 
-## Insstallation
+## Installation
 
 ### As a module
 
@@ -39,14 +39,14 @@ The module is built with webpack so you can find the actual script in _node_modu
 You can also find the script on the official site https://human-writes/latest/human-writes.js.
 
 ```html
-<script src="https://human-writes/latest/human-writes.js"></script>
+<script src="https://human-writes.io/latest/human-writes.js"></script>
 ```
 
 ## Use cases
 
 ### TextWriter
 
-Imagine you have a block of text to describe the features of a project, to promote a product or to introduce a longer text. TextWriter can help to get the attention of the visitor on this part of your site.
+Imagine you have a block of text to describe the features of a project, to promote a product or to introduce a longer text. TextWriter can help you to catch the attention of the visitor on this part of your site.
 
 #### Implementation
 
@@ -58,9 +58,9 @@ Store your block of text in a place accessible by URL and declare it as a source
 
 ### CodeWriter
 
-You have an IT oriented technical documentation and you want to share code snipptes. This is a quite common use-case nowadays.
+You have an IT oriented technical documentation, and you want to share code snippets. This is a quite common use-case nowadays.
 
-CodeWriter does the same job as TextWriter except it follows code syntax workflow by opening and closing brackets before it actually writes code in between. It also implement code highlighting. All resources of the HighlightJS library are requested inside the webcomponent, so you don't have to worry about them.
+CodeWriter does the same job as TextWriter except it follows code syntax workflow by opening and closing brackets before it writes code in between.
 
 #### Implementation
 
@@ -76,5 +76,22 @@ Store your block of code in a place accessible by URL and declare it as a source
 <code-writer>
 ```
 
-The use of HighlightJS library is disabled by default so you have to declare it to _true_ to use it. Once enabled, you can pass the _theme_ and the _language_ parameters. Default values are respectively **"base16/monokai"** and **"html"**.
+The use of HighlightJS library is disabled by default so you must declare it to _true_ to use it. Once enabled, you can pass the _theme_ and the _language_ as parameters. Default values are respectively **"base16/monokai"** and **"html"**. Find more themes and languages on https://highlightjs.org.
 
+## State of the project
+
+It is not tested in real life yet. I you want to use it, please send me feedback of your experience to _ohmyinbox99_at_gmail_dot_com_ (yes that's it).
+
+## Roadmap
+
+New features to come:
+
+- add events to interact between two components,
+- raise an event when a specific word is found,
+- disable making mistakes by default,
+- can write at random speed.
+- add a speed parameter.
+
+## License
+
+HumanWrites is under General Public License 3.
