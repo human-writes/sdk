@@ -1,16 +1,16 @@
-import CodeWriterComponent from "./src/code-writer.component.mjs"
-import TextWriterComponent from "./src/text-writer.component.mjs"
+/* eslint-disable import/extensions */
+import CodeWriterComponent from "./src/code-writer.component.mjs";
+import TextWriterComponent from "./src/text-writer.component.mjs";
 
 export default function index() {
-    const F = function () {
-
+  class F {
+    constructor() {
+      customElements.define("code-writer", CodeWriterComponent);
+      customElements.define("text-writer", TextWriterComponent);
     }
-    F.prototype.declare = function () {
-        customElements.define('code-writer', CodeWriterComponent);
-        customElements.define('text-writer', TextWriterComponent);
-    }
+  }
 
-    return new F()
+  return new F();
 }
 
-index().declare()
+index();
