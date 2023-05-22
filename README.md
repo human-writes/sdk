@@ -36,10 +36,12 @@ The module is built with webpack so you can find the actual script in _node_modu
 
 ### As a script in a page
 
-You can also find the script on the official site https://human-writes.io/latest/human-writes.js.
+You can also find the script here https://ephect.io/human-writes/latest/human-writes.min.js.
+
+Add this line in the head section of your page:
 
 ```html
-<script src="https://human-writes.io/latest/human-writes.js"></script>
+<script src="https://ephect.io/human-writes/latest/human-writes.min.js"></script>
 ```
 
 ## Use cases
