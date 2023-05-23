@@ -36,10 +36,12 @@ The module is built with webpack so you can find the actual script in _node_modu
 
 ### As a script in a page
 
-You can also find the script on the official site https://human-writes/latest/human-writes.js.
+You can also find the script here https://ephect.io/human-writes/latest/human-writes.min.js.
+
+Add this line in the head section of your page:
 
 ```html
-<script src="https://human-writes/latest/human-writes.js"></script>
+<script src="https://ephect.io/human-writes/latest/human-writes.min.js"></script>
 ```
 
 ## Use cases
@@ -53,7 +55,14 @@ Imagine you have a block of text to describe the features of a project, to promo
 Store your block of text in a place accessible by URL and declare it as a source of the webcomponent.
 
 ```html
-<text-writer source="/my-block-of-text.html"><text-writer>
+<text-writer 
+    source="/my-block-of-text.html" 
+    speed="20"
+    make-mistakes="true" 
+    styles="/css/index.css,/css/app.css" 
+    classes="App-content" 
+/>
+
 ```
 
 ### CodeWriter
@@ -72,8 +81,7 @@ Store your block of code in a place accessible by URL and declare it as a source
     use-highlight-js="true"
     theme="base16/monokai"
     language="php"
-    >
-<code-writer>
+/>
 ```
 
 The use of HighlightJS library is disabled by default so you must declare it to _true_ to use it. Once enabled, you can pass the _theme_ and the _language_ as parameters. Default values are respectively **"base16/monokai"** and **"html"**. Find more themes and languages on https://highlightjs.org.
@@ -88,9 +96,7 @@ New features to come:
 
 - add events to interact between two components,
 - raise an event when a specific word is found,
-- disable making mistakes by default,
 - can write at random speed.
-- add a speed parameter.
 
 ## License
 
