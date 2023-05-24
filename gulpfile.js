@@ -15,7 +15,7 @@ gulp.task("default", () => gulp
       output: {
         path: path.resolve(__dirname, "dist"),
         publicPath: "",
-        filename: "bundle.js",
+        filename: "human-writes.min.js",
       },
 
       module: {

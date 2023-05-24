@@ -1,12 +1,12 @@
 {
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
-  "version": "0.5.45",
+  "version": "0.5.46",
   "description": "Write code snippet like a human",
   "main": "bootstrap.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
   "author": "David Blanchard <dpjb@hotmail.fr>",
-  "license": "MIT",
+  "license":"GPLv3",
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },
