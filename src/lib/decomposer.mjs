@@ -318,8 +318,8 @@ export default class Decomposer {
 
             const spaces = "•".repeat(tag.length);
 
-            const beginBlock = text.substring(0, start - 1);
-            const endBlock = text.substring(end);
+            const beginBlock = resultText.substring(0, start - 1);
+            const endBlock = resultText.substring(end);
 
             resultText = beginBlock + spaces + endBlock;
         }

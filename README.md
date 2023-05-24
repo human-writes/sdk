@@ -90,6 +90,10 @@ The use of HighlightJS library is disabled by default so you must declare it to 
 
 It is not tested in real life yet. I you want to use it, please send me feedback of your experience to _ohmyinbox99_at_gmail_dot_com_ (yes that's it).
 
+## Changelog
+
+v0.5.46 - Fix a bug on that prevented CodeWriter from working some cases.
+
 ## Roadmap
 
 New features to come:
