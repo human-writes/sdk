@@ -12,6 +12,8 @@ CodeWriter writes HTML text inside a _pre_ tag embedding a _code_ tag for the de
 
 CodeWriter supports code highlighting thanks to HighlightJS library integration. All resources of the HighlightJS library are requested inside the webcomponent, so you do not have to worry about them.
 
+The writing speed depends on the delay between two charaters plus the process time to determine the character to display. The delay is 60 milliseconds by default.
+
 Both components also propose to:
 - make mistakes :angry:
 - correct mistakes right away :smile:
@@ -100,6 +102,7 @@ Feel free to send me feedback of your experience to _ohmyinbox99_at_gmail_dot_co
 ## Changelog
 
 v0.5.47 - Update this README with the demo site.
+
 v0.5.46 - Fix a bug that prevented CodeWriter from working in some cases.
 
 ## Roadmap
