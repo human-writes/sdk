@@ -34,3 +34,5 @@ jobs:
         with:
           parallel-finished: true
           carryforward: "run-1,run-2"
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
