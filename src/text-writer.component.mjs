@@ -19,7 +19,7 @@ export default class TextWriterComponent extends HTMLElement {
         /**
          * Attributes passed inline to the component
          */
-        return ["text", "speed", "make-mistakes", "styles", "classes"];
+        return ["text", "speed", "depends-on-selector", "make-mistakes", "styles", "classes", "finished"];
     }
 
     get text() {
@@ -28,6 +28,10 @@ export default class TextWriterComponent extends HTMLElement {
     
     get speed() {
         return this.getAttribute("speed") ?? null;
+    }
+
+    get dependsOnSelector() {
+        return this.getAttribute("depends-on-selector") ?? null;
     }
     
     get makeMistakes() {
@@ -41,6 +45,14 @@ export default class TextWriterComponent extends HTMLElement {
 
     get classes() {
         return this.getAttribute("classes") ?? null;
+    }
+
+    get finished() {
+        return this.getAttribute("finished") ?? null;
+    }
+
+    get restart() {
+        return this.getAttribute("restart") ?? null;
     }
 
     async connectedCallback() {
@@ -61,7 +73,45 @@ export default class TextWriterComponent extends HTMLElement {
             parentDiv.setAttribute("class", this.classes);
         }
 
-        const base = new TextWriter(this);
-        base.writeLikeAHuman("to-write");
+        if(this.dependsOnSelector !== null) {
+            const component = document.querySelector(this.dependsOnSelector)
+            if(component !== undefined && (component.tagName === "TEXT-WRITER" || component.tagName === "CODE-WRITER")) {
+                // this.addEventListener("finishedWriting", (e) => {
+                //     const base = new TextWriter(this);
+                //     base.writeLikeAHuman("to-write");
+                // })
+
+                // Options for the observer (which mutations to observe)
+                const config = { attributes: true };
+
+                // Callback function to execute when mutations are observed
+                const callback = (mutationList, observer) => {
+                    for (const mutation of mutationList) {
+                        if (mutation.type === "attributes" && mutation.attributeName === "finished") {
+                            // console.log(`The ${mutation.attributeName} attribute was modified.`);
+
+                            if(component.finished) {
+                                // Later, you can stop observing
+                                observer.disconnect();
+
+                                const base = new TextWriter(this);
+                                base.writeLikeAHuman("to-write");
+                            }
+                        }
+                    }
+                };
+
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(callback);
+
+                // Start observing the target node for configured mutations
+                observer.observe(component, config);
+
+
+            }
+        } else {
+            const base = new TextWriter(this);
+            base.writeLikeAHuman("to-write");
+        }
     }
 }

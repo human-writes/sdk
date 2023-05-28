@@ -69,7 +69,7 @@ textarea {
         /**
          * Attributes passed inline to the component
          */
-        return ["source", "speed", "make-mistakes", "use-highlight-js", "theme", "language"];
+        return ["source", "speed", "depends-on-selector", "make-mistakes", "use-highlight-js", "theme", "language"];
     }
 
     get source() {
@@ -78,6 +78,10 @@ textarea {
 
     get speed() {
         return this.getAttribute("speed") ?? null;
+    }
+
+    get dependsOnSelector() {
+        return this.getAttribute("depends-on-selector") ?? null;
     }
 
     get makeMistakes() {
@@ -96,6 +100,14 @@ textarea {
 
     get language() {
         return this.getAttribute("language") ?? null;
+    }
+
+    get finished() {
+        return this.getAttribute("finished") ?? null;
+    }
+
+    get restart() {
+        return this.getAttribute("restart") ?? null;
     }
 
     async connectedCallback() {
@@ -136,7 +148,45 @@ textarea {
         /**
          * The magic starts here
          */
-        const cw = new CodeWriter(this);
-        cw.writeLikeAHuman("to-copy", "to-write");
+        if(this.dependsOnSelector !== null) {
+            const component = document.querySelector(this.dependsOnSelector)
+            if(component !== undefined && (component.tagName === "TEXT-WRITER" || component.tagName === "CODE-WRITER")) {
+
+                // this.addEventListener("finishedWriting", (e) => {
+                //     const cw = new CodeWriter(this);
+                //     cw.writeLikeAHuman("to-copy", "to-write");
+                // })
+
+                // Options for the observer (which mutations to observe)
+                const config = { attributes: true };
+
+                // Callback function to execute when mutations are observed
+                const callback = (mutationList, observer) => {
+                    for (const mutation of mutationList) {
+                        if (mutation.type === "attributes" && mutation.attributeName === "finished") {
+                            // console.log(`The ${mutation.attributeName} attribute was modified.`);
+
+                            if(component.finished) {
+                                // Later, you can stop observing
+                                observer.disconnect();
+
+                                const cw = new CodeWriter(this);
+                                cw.writeLikeAHuman("to-copy", "to-write");
+                            }
+                        }
+                    }
+                };
+
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(callback);
+
+                // Start observing the target node for configured mutations
+                observer.observe(component, config);
+    
+            }
+        } else {
+            const cw = new CodeWriter(this);
+            cw.writeLikeAHuman("to-copy", "to-write");
+        }
     }
 }
