@@ -1,5 +1,9 @@
 # Human Writes
 
+[![NodeJS with Gulp](https://github.com/ephect-io/human-writes/actions/workflows/npm-gulp.yml/badge.svg?branch=develop)](https://github.com/ephect-io/human-writes/actions/workflows/npm-gulp.yml)
+[![CodeQL](https://github.com/ephect-io/human-writes/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ephect-io/human-writes/actions/workflows/github-code-scanning/codeql)
+[![ESLint](https://github.com/ephect-io/human-writes/actions/workflows/eslint.yml/badge.svg?branch=develop)](https://github.com/ephect-io/human-writes/actions/workflows/eslint.yml)
+
 ## What does it do?
 
 HumanWrites is a package embedding 2 webcomponents TextWriter and CodeWriter which imitate the human writing style on a keyboard.
@@ -62,7 +66,8 @@ Imagine you have a block of text to describe the features of a project, to promo
 Store your block of text in a place accessible by URL and declare it as a source of the webcomponent.
 
 ```html
-<text-writer 
+<text-writer
+    name="hello"
     source="/my-block-of-text.html" 
     speed="20"
     make-mistakes="true" 
@@ -85,6 +90,7 @@ Store your block of code in a place accessible by URL and declare it as a source
 
 ```html
 <code-writer 
+    depends-on-selector="text-writer[name='hello']"
     source="/my-block-of-code.html"
     use-highlight-js="true"
     theme="base16/monokai"
@@ -101,6 +107,8 @@ Feel free to send me feedback of your experience to _ohmyinbox99_at_gmail_dot_co
 
 ## Changelog
 
+v0.5.48 - Components can now be chained by the parameter depends-on-selector, eg: with 2 components if the second references the first it starts when the first finishes. 
+
 v0.5.47 - Update this README with the demo site.
 
 v0.5.46 - Fix a bug that prevented CodeWriter from working in some cases.
@@ -109,9 +117,9 @@ v0.5.46 - Fix a bug that prevented CodeWriter from working in some cases.
 
 New features to come:
 
-- add events to interact between two components,
 - raise an event when a specific word is found,
 - can write at random speed.
+- customize code-writer CSS.
 - and more...
 
 ## License

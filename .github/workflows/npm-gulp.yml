@@ -22,14 +22,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@v1
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secret_coveralls_repo_token }}
-
     - name: Build
       run: |
         npm install
         gulp
-        
-
