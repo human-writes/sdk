@@ -17,9 +17,11 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: yarn install
-        run: yarn
+      - name: npm install
+        run: npm install
 
+      - name: Test ${{ matrix.test_number }}
+        run: echo "test-coverage-${{ matrix.test_number }}"
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@v2
         with:
@@ -27,6 +29,8 @@ jobs:
           parallel: true
 
   finish:
+    needs: test
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
@@ -35,4 +39,4 @@ jobs:
           parallel-finished: true
           carryforward: "run-1,run-2"
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
