@@ -1,5 +1,9 @@
 # Human Writes
 
+[![NodeJS with Gulp](https://github.com/ephect-io/human-writes/actions/workflows/npm-gulp.yml/badge.svg?branch=develop)](https://github.com/ephect-io/human-writes/actions/workflows/npm-gulp.yml)
+[![CodeQL](https://github.com/ephect-io/human-writes/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ephect-io/human-writes/actions/workflows/github-code-scanning/codeql)
+
+
 ## What does it do?
 
 HumanWrites is a package embedding 2 webcomponents TextWriter and CodeWriter which imitate the human writing style on a keyboard.

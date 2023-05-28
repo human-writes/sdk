@@ -24,6 +24,9 @@
     "prettier": "^2.8.8",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
-    "webpack-stream": "^7.0.0"
+    "webpack-stream": "^7.0.0",
+    "test-coverage-badge": "^1.2.0",
+    "lcov-summary": "^1.0.1",
+    "coveralls-reporter": "^0.1.2"
   }
 }
