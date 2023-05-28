@@ -17,8 +17,8 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: npm install
-        run: npm install
+      - name: yarn install
+        run: yarn
 
       - name: Test ${{ matrix.test_number }}
         run: make test-coverage-${{ matrix.test_number }}
