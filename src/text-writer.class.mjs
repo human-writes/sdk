@@ -424,12 +424,13 @@ export default class TextWriter {
         // Raise an event outside the shadow DOM
         // when all is done and ready
         const finishedEvent = new CustomEvent("finishedWriting", {
-            bubbles: true,
+            cancelable: true,
             composed: true,
             detail: {
                 content: html,
             },
         });
-        this.#parent.dispatchEvent(finishedEvent);
+        // this.#parent.dispatchEvent(finishedEvent);
+        this.#parent.setAttribute("finished", "true");
     }
 }
