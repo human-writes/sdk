@@ -1,8 +1,8 @@
 node_modules
 .npmrc
 .idea/
-.eslintrc.json
 .editorconfig
 .gitattributes
 .yarnrc.yml
 .yarn
+.env
