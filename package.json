@@ -2,11 +2,11 @@
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
   "version": "0.5.48",
-  "description": "Write code snippet like a human",
+  "description": "Write text, HTML and code snippet like a human",
   "main": "bootstrap.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
-  "author": "David Blanchard <dpjb@hotmail.fr>",
-  "license": "GPL",
+  "author": "David Blanchard <ohmyinbox99@gmail.com>",
+  "license": "GPL-3.0",
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },

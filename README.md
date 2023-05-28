@@ -117,9 +117,9 @@ v0.5.46 - Fix a bug that prevented CodeWriter from working in some cases.
 
 New features to come:
 
--
 - raise an event when a specific word is found,
 - can write at random speed.
+- customize code-writer CSS.
 - and more...
 
 ## License
