@@ -10,15 +10,21 @@
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },
+  "dependencies": {
+    "highlightjs": "^9.16.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
+    "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "babel-loader": "^9.1.2",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-eslint": "^7.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsdoc": "^45.0.0",
+    "eslint-plugin-node": "^11.1.0",
     "glob-parent": "^6.0.2",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",

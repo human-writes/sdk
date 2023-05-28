@@ -6,3 +6,5 @@ node_modules
 .yarnrc.yml
 .yarn
 .env
+yarn-error.log
+eslint-results.sarif
