@@ -17,7 +17,7 @@ export default class CodeWriter {
     async writeLikeAHuman(source, target) {
         const sourceComponent = this.#parent.shadowRoot.querySelector(`pre#${source} code`);
         const targetComponent = this.#parent.shadowRoot.querySelector(`pre#${target} code`);
-        const speed = this.#parent.speed ?? 60;
+        let speed = this.#parent.speed;
         let reg = [];
         let html = "";
         let lastIndent = "";
@@ -38,12 +38,17 @@ export default class CodeWriter {
             });
         }
 
+        function randomSpeed(speed) {
+            return Math.floor(speed * 0.75 + Math.random() * speed);
+        }
+
         async function addChar(c, removeLF = false) {
             let tail = reg.join("");
             if (removeLF) {
                 tail = tail.trim();
             }
 
+            // speed = randomSpeed(this.#parent.speed)
             html += c;
             targetComponent.innerHTML = html + tail;
             if (window.hljs !== undefined) {

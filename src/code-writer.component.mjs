@@ -77,7 +77,7 @@ textarea {
     }
 
     get speed() {
-        return this.getAttribute("speed") ?? null;
+        return this.getAttribute("speed") ?? 66;
     }
 
     get dependsOnSelector() {

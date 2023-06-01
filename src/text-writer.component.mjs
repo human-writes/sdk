@@ -27,7 +27,7 @@ export default class TextWriterComponent extends HTMLElement {
     }
     
     get speed() {
-        return this.getAttribute("speed") ?? null;
+        return this.getAttribute("speed") ?? 60;
     }
 
     get dependsOnSelector() {

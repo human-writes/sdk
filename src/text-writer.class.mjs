@@ -18,7 +18,7 @@ export default class TextWriter {
         const targetComponent = this.#parent.shadowRoot.querySelector(
             `div#${target}`
         );
-        const speed = this.#parent.speed ?? 60;
+        let speed = this.#parent.speed;
         let reg = [];
         let html = "";
         let lastIndent = "";
@@ -32,6 +32,7 @@ export default class TextWriter {
         const toUnshift = [];
         const toUnshiftHasLF = [];
         let indentCount = 0;
+        let the = this;
 
         function delay(milliseconds) {
             return new Promise((resolve) => {
@@ -39,11 +40,17 @@ export default class TextWriter {
             });
         }
 
+        function randomSpeed(speed) {
+            return Math.floor(speed * 0.75 + Math.random() * speed);
+        }
+
         async function addChar(c, removeLF = false) {
             let tail = reg.join("");
             if (removeLF) {
                 tail = tail.trim();
             }
+
+            speed = randomSpeed(the.#parent.speed);
 
             html += c;
             targetComponent.innerHTML = html + tail;
