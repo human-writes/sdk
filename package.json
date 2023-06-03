@@ -7,11 +7,26 @@
   "repository": "git@github.com:ephect-io/human-writes.git",
   "author": "David Blanchard <ohmyinbox99@gmail.com>",
   "license": "GPL-3.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/human-writes.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/human-writes.js",
+      "require": "./dist/human-writes.umd.js"
+    }
+  },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "build:dev": "webpack --config webpack.config.js",
+    "build:prod": "gulp",
+    "lint": "npx eslint --ext .mjs,.cjs,.js ./src"
   },
   "dependencies": {
-    "highlightjs": "^9.16.2"
+    "highlightjs": "^9.16.2",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
@@ -27,6 +42,7 @@
     "eslint-plugin-node": "^11.1.0",
     "glob-parent": "^6.0.2",
     "gulp": "^4.0.2",
+    "gulp-clean-css": "4.3.0",
     "gulp-cli": "^2.3.0",
     "prettier": "^2.8.8",
     "webpack": "^5.83.1",

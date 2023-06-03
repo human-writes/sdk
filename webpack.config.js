@@ -1,39 +1,41 @@
 // Webpack uses this to work with directories
-const path = require('path');
+import path from "path";
+import url from "url";
 
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // This is the main configuration object.
 // Here, you write different options and tell Webpack what to do
-module.exports = {
-
+export default {
     // Path to your entry point. From this file Webpack will begin its work
-    entry: './bootstrap.js',
+    entry: "./bootstrap.js",
 
     // Path and filename of your result bundle.
     // Webpack will bundle all JavaScript into this file
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '',
-        filename: 'human-writes.min.js'
+        path: path.resolve(__dirname, "dist"),
+        publicPath: "",
+        filename: "human-writes.min.js"
     },
 
     module: {
-        rules: [{
-            test: /\.mjs$/,
-            exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env']
+        rules: [
+            {
+                test: /\.mjs$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env"]
+                    }
                 }
             }
-        }]
+        ]
     },
 
     // Default mode for Webpack is production.
     // Depending on mode Webpack will apply different things
-    // on the final bundle. For now, we don't need production's JavaScript 
+    // on the final bundle. For now, we don't need production's JavaScript
     // minifying and other things, so let's set mode to development
-    mode: 'development'
-
-
+    mode: "development"
 };
