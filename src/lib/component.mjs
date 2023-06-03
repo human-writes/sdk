@@ -1,4 +1,3 @@
-
 export default class WriterComponent extends HTMLElement {
     constructor() {
         super();
@@ -82,28 +81,29 @@ export default class WriterComponent extends HTMLElement {
 
                 // Callback function to execute when mutations are observed
                 // Create an observer instance linked to the callback function
-                const observer = new MutationObserver((mutationList, observer) => {
-                    for (const mutation of mutationList) {
-                        if (
-                            mutation.type === "attributes" &&
-                            mutation.attributeName === "finished"
-                        ) {
-                            if (component.finished) {
-                                observer.disconnect();
-                                this.writeLikeAHuman();
+                const observer = new MutationObserver(
+                    (mutationList, observer) => {
+                        for (const mutation of mutationList) {
+                            if (
+                                mutation.type === "attributes" &&
+                                mutation.attributeName === "finished"
+                            ) {
+                                if (component.finished) {
+                                    observer.disconnect();
+                                    this.writeLikeAHuman();
+                                }
                             }
                         }
                     }
-                });
+                );
 
                 // Start observing the target node for configured mutations
                 observer.observe(component, config);
             }
         } else {
             this.writeLikeAHuman();
-
         }
     }
 
-    writeLikeAHuman() {};
+    writeLikeAHuman() {}
 }

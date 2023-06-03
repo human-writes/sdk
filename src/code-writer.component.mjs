@@ -1,4 +1,4 @@
-import Writer from "./lib/writer.mjs"
+import Writer from "./lib/writer.mjs";
 import WriterComponent from "./lib/component.mjs";
 
 export default class CodeWriterComponent extends WriterComponent {
@@ -96,7 +96,7 @@ textarea {
         /**
          * Integrate highlightJs
          */
-        
+
         if (this.useHighlightJs) {
             const $theme = this.theme ?? "base16/monokai";
             const $language = this.language ?? "html";
@@ -128,8 +128,6 @@ textarea {
         }
 
         super.connectedCallback();
-
-
     }
 
     writeLikeAHuman() {
