@@ -1,6 +1,5 @@
 # Human Writes
 
-[![NodeJS with Gulp](https://github.com/ephect-io/human-writes/actions/workflows/npm-gulp.yml/badge.svg?branch=develop)](https://github.com/ephect-io/human-writes/actions/workflows/npm-gulp.yml)
 [![CodeQL](https://github.com/ephect-io/human-writes/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ephect-io/human-writes/actions/workflows/github-code-scanning/codeql)
 [![ESLint](https://github.com/ephect-io/human-writes/actions/workflows/eslint.yml/badge.svg?branch=develop)](https://github.com/ephect-io/human-writes/actions/workflows/eslint.yml)
 
@@ -21,6 +20,8 @@ The writing speed depends on the delay between two charaters plus the process ti
 Both components also propose to:
 - make mistakes :angry:
 - correct mistakes right away :smile:
+- chain each other with the parameter _depends-on-selector_, eg: with 2 components if the second references the first it starts when the first finishes.
+- write at random speed. The speed is computed from 25% faster to 75% slower than the given speed parameter.  
 
 ## Live demo
 
@@ -107,7 +108,9 @@ Feel free to send me feedback of your experience to _ohmyinbox99_at_gmail_dot_co
 
 ## Changelog
 
-v0.5.48 - Components can now be chained by the parameter depends-on-selector, eg: with 2 components if the second references the first it starts when the first finishes. 
+v0.5.49 - Fix mistakes that were all the same for one instance of a web component. Add a feature to write at random speed.
+
+v0.5.48 - Add a feature to chain components one after the other. 
 
 v0.5.47 - Update this README with the demo site.
 
@@ -118,7 +121,6 @@ v0.5.46 - Fix a bug that prevented CodeWriter from working in some cases.
 New features to come:
 
 - raise an event when a specific word is found,
-- can write at random speed.
 - customize code-writer CSS.
 - and more...
 
