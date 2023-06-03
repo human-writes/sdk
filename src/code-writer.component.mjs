@@ -1,13 +1,9 @@
-import CodeWriter from "./code-writer.class.mjs";
+import Writer from "./lib/writer.mjs"
+import WriterComponent from "./lib/component.mjs";
 
-export default class CodeWriterComponent extends HTMLElement {
+export default class CodeWriterComponent extends WriterComponent {
     constructor() {
         super();
-
-        this.source;
-        this.useHighlightJs;
-        this.theme;
-        this.language;
 
         this.attachShadow({
             mode: "open"
@@ -19,11 +15,11 @@ export default class CodeWriterComponent extends HTMLElement {
     display: block;
     position: relative;
     float: left;
-    width: 33vw;
+    width: ${this.snippetWidth};
 }
 
 #to-write {
-    width: 33vw;
+    width: ${this.snippetWidth};
 }
 
 .to-be-copied {
@@ -35,7 +31,7 @@ export default class CodeWriterComponent extends HTMLElement {
 .to-be-written {
     display: flex;
     position: absolute;
-    width: 33vw;
+    width: ${this.snippetWidth};
 }
 
 .code-snippet {
@@ -69,32 +65,14 @@ textarea {
         /**
          * Attributes passed inline to the component
          */
-        return [
-            "source",
-            "speed",
-            "depends-on-selector",
-            "make-mistakes",
+        const parentAttributes = super.observeAttributes();
+
+        return Array.prototype.concat(parentAttributes, [
             "use-highlight-js",
             "theme",
-            "language"
-        ];
-    }
-
-    get source() {
-        return this.getAttribute("source") ?? null;
-    }
-
-    get speed() {
-        return this.getAttribute("speed") ?? 66;
-    }
-
-    get dependsOnSelector() {
-        return this.getAttribute("depends-on-selector") ?? null;
-    }
-
-    get makeMistakes() {
-        const result = this.getAttribute("make-mistakes") ?? "";
-        return result.toLowerCase() === "true";
+            "language",
+            "snippet-width"
+        ]);
     }
 
     get useHighlightJs() {
@@ -110,19 +88,15 @@ textarea {
         return this.getAttribute("language") ?? null;
     }
 
-    get finished() {
-        return this.getAttribute("finished") ?? null;
-    }
-
-    get restart() {
-        return this.getAttribute("restart") ?? null;
+    get snippetWidth() {
+        return this.getAttribute("snippet-width") ?? "45vw";
     }
 
     async connectedCallback() {
         /**
-         * Integrate styles and apply classes
+         * Integrate highlightJs
          */
-
+        
         if (this.useHighlightJs) {
             const $theme = this.theme ?? "base16/monokai";
             const $language = this.language ?? "html";
@@ -153,53 +127,13 @@ textarea {
             }
         }
 
-        /**
-         * The magic starts here
-         */
-        if (this.dependsOnSelector !== null) {
-            const component = document.querySelector(this.dependsOnSelector);
-            if (
-                component !== undefined &&
-                (component.tagName === "TEXT-WRITER" ||
-                    component.tagName === "CODE-WRITER")
-            ) {
-                // this.addEventListener("finishedWriting", (e) => {
-                //     const cw = new CodeWriter(this);
-                //     cw.writeLikeAHuman("to-copy", "to-write");
-                // })
+        super.connectedCallback();
 
-                // Options for the observer (which mutations to observe)
-                const config = { attributes: true };
 
-                // Callback function to execute when mutations are observed
-                const callback = (mutationList, observer) => {
-                    for (const mutation of mutationList) {
-                        if (
-                            mutation.type === "attributes" &&
-                            mutation.attributeName === "finished"
-                        ) {
-                            // console.log(`The ${mutation.attributeName} attribute was modified.`);
+    }
 
-                            if (component.finished) {
-                                // Later, you can stop observing
-                                observer.disconnect();
-
-                                const cw = new CodeWriter(this);
-                                cw.writeLikeAHuman("to-copy", "to-write");
-                            }
-                        }
-                    }
-                };
-
-                // Create an observer instance linked to the callback function
-                const observer = new MutationObserver(callback);
-
-                // Start observing the target node for configured mutations
-                observer.observe(component, config);
-            }
-        } else {
-            const cw = new CodeWriter(this);
-            cw.writeLikeAHuman("to-copy", "to-write");
-        }
+    writeLikeAHuman() {
+        const cw = new Writer(this);
+        cw.writeLikeAHuman("to-write", "to-copy");
     }
 }
