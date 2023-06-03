@@ -18,6 +18,7 @@
       "require": "./dist/human-writes.umd.js"
     }
   },
+  "keywords": ["HTML", "code", "snippet", "webComponents", "human-like", "writing"],
   "scripts": {
     "dev": "webpack --config webpack.config.js",
     "build": "gulp",
