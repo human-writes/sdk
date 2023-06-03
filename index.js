@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import CodeWriterComponent from "./src/code-writer.component.mjs";
 import TextWriterComponent from "./src/text-writer.component.mjs";
 
