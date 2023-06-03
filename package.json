@@ -1,7 +1,7 @@
 {
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
-  "version": "0.5.48",
+  "version": "0.5.49",
   "description": "Write text, HTML and code snippet like a human",
   "main": "bootstrap.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
