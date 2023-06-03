@@ -15,9 +15,13 @@ export default class CodeWriter {
     }
 
     async writeLikeAHuman(source, target) {
-        const sourceComponent = this.#parent.shadowRoot.querySelector(`pre#${source} code`);
-        const targetComponent = this.#parent.shadowRoot.querySelector(`pre#${target} code`);
-        const speed = this.#parent.speed ?? 60;
+        const sourceComponent = this.#parent.shadowRoot.querySelector(
+            `pre#${source} code`
+        );
+        const targetComponent = this.#parent.shadowRoot.querySelector(
+            `pre#${target} code`
+        );
+        let speed = this.#parent.speed;
         let reg = [];
         let html = "";
         let lastIndent = "";
@@ -31,11 +35,16 @@ export default class CodeWriter {
         const toUnshift = [];
         const toUnshiftHasLF = [];
         let indentCount = 0;
+        let the = this;
 
         function delay(milliseconds) {
             return new Promise((resolve) => {
                 setTimeout(resolve, milliseconds);
             });
+        }
+
+        function randomSpeed(speed) {
+            return Math.floor(speed * 0.75 + Math.random() * speed);
         }
 
         async function addChar(c, removeLF = false) {
@@ -44,10 +53,12 @@ export default class CodeWriter {
                 tail = tail.trim();
             }
 
+            speed = randomSpeed(the.#parent.speed);
+
             html += c;
             targetComponent.innerHTML = html + tail;
             if (window.hljs !== undefined) {
-                hljs.highlightElement(targetComponent);
+                window.hljs.highlightElement(targetComponent);
             }
 
             await delay(speed);
@@ -73,7 +84,7 @@ export default class CodeWriter {
 
         function parseIndents(indentedHtml) {
             const result = [];
-            const regex = /^([^\S][ \s]+)*/mg;
+            const regex = /^([^\S][ \s]+)*/gm;
 
             let matches;
 
@@ -89,7 +100,7 @@ export default class CodeWriter {
         }
 
         function deleteIndents(indentedHtml) {
-            const regex = /^([^\S][ \s]+)*/mg;
+            const regex = /^([^\S][ \s]+)*/gm;
             return indentedHtml.replace(regex, "");
         }
 
@@ -100,15 +111,20 @@ export default class CodeWriter {
 
         async function loadText(url) {
             let loadedText = "";
-            await fetch(url).then((response) => response.text()).then((htmlText) => {
-                loadedText = htmlText;
-            });
+            await fetch(url)
+                .then((response) => response.text())
+                .then((htmlText) => {
+                    loadedText = htmlText;
+                });
 
             return loadedText;
         }
 
         function translate(encodedText) {
-            const decodedText = encodedText.replaceAll(ENCODED_OPEN_TAG, OPEN_TAG);
+            const decodedText = encodedText.replaceAll(
+                ENCODED_OPEN_TAG,
+                OPEN_TAG
+            );
             return decodedText.replaceAll(ENCODED_CLOSE_TAG, CLOSE_TAG);
         }
 
@@ -190,7 +206,10 @@ export default class CodeWriter {
         decomposer.doComponents();
         nodes = [...decomposer.list];
 
-        workingText = decomposer.workingText.replace(`${LF + ENCODED_OPEN_TAG}Eof ${TERMINATOR}${ENCODED_CLOSE_TAG}`, "");
+        workingText = decomposer.workingText.replace(
+            `${LF + ENCODED_OPEN_TAG}Eof ${TERMINATOR}${ENCODED_CLOSE_TAG}`,
+            ""
+        );
 
         const emptyText = makeEmptyText(workingText);
         sourceComponent.innerHTML = emptyText;
@@ -208,19 +227,27 @@ export default class CodeWriter {
                 continue;
             }
 
-            if (this.#parent.makeMistakes && decomposer.phraseStarts.length && decomposer.phraseStarts[0] === i) {
+            if (
+                this.#parent.makeMistakes &&
+                decomposer.mistakes.length &&
+                decomposer.phraseStarts.length &&
+                decomposer.phraseStarts[0] === i
+            ) {
                 const phraseLen = decomposer.phraseLengths[0];
                 for (let j = 0; j < phraseLen; j++) {
                     const pos = i + j;
-                    const mistakeIndex = decomposer.mistakeCursors.indexOf(pos);
+                    const mistakeIndex = decomposer.mistakeCursors[0];
                     c = workingText[pos];
-                    if (mistakeIndex > -1) {
-                        await addChar(decomposer.mistakes[mistakeIndex]);
+                    if (mistakeIndex === pos) {
+                        await addChar(decomposer.mistakes[0]);
                     } else {
                         await addChar(c);
                     }
 
-                    if (decomposer.wordEnds.includes(pos) && decomposer.mistakeCursors.length) {
+                    if (
+                        decomposer.wordEnds.includes(pos) &&
+                        decomposer.mistakeCursors.length
+                    ) {
                         const cursor = decomposer.mistakeCursors[0];
                         if (cursor <= pos) {
                             const subLen = pos - cursor + 1;
@@ -229,6 +256,7 @@ export default class CodeWriter {
                                 j--;
                             }
 
+                            decomposer.mistakes.shift();
                             decomposer.mistakeCursors.shift();
                         }
                     }
@@ -247,7 +275,10 @@ export default class CodeWriter {
             // In the case of a closing quote
             if (c === "&" && next5chars === "&oq;/") {
                 const name = workingText.substring(i + 5, i + 6);
-                const { word, translated } = decomposer.translateBracket(c, name);
+                const { word, translated } = decomposer.translateBracket(
+                    c,
+                    name
+                );
                 shift();
                 await addChar(word);
                 i += 9;
@@ -256,7 +287,10 @@ export default class CodeWriter {
             // In the case of an opening quote
             if (c === "&" && next4chars === "&oq;") {
                 const name = workingText.substring(i + 4, i + 5);
-                const { word, translated } = decomposer.translateBracket(c, name);
+                const { word, translated } = decomposer.translateBracket(
+                    c,
+                    name
+                );
                 unshift(word);
                 await addChar(word);
                 i += 8;
@@ -311,7 +345,11 @@ export default class CodeWriter {
                 }
 
                 c = node.closer.text;
-                const { word, translated } = decomposer.translateBracket(c, node.name, true);
+                const { word, translated } = decomposer.translateBracket(
+                    c,
+                    node.name,
+                    true
+                );
 
                 c = word;
 
@@ -364,7 +402,10 @@ export default class CodeWriter {
 
                 c = node.text;
                 // Is the tag name a bracket?
-                const { word, translated } = decomposer.translateBracket(c, node.name);
+                const { word, translated } = decomposer.translateBracket(
+                    c,
+                    node.name
+                );
                 c = word;
 
                 // Is it an open tag?
@@ -374,7 +415,11 @@ export default class CodeWriter {
                     unshifted = node.closer.text;
 
                     // Is the tag name a bracket?
-                    const { word, translated } = decomposer.translateBracket(unshifted, node.name, true);
+                    const { word, translated } = decomposer.translateBracket(
+                        unshifted,
+                        node.name,
+                        true
+                    );
                     unshifted = word;
 
                     // Does the tag body contain an LF character?
@@ -431,7 +476,10 @@ export default class CodeWriter {
                 lastLineFeed = LF + lastIndent;
 
                 const reg0 = reg.length ? reg[0].trim() : "";
-                const nextString = workingText.substring(i + 1, i + reg0.length + 1);
+                const nextString = workingText.substring(
+                    i + 1,
+                    i + reg0.length + 1
+                );
 
                 indentCount++;
 
@@ -452,8 +500,8 @@ export default class CodeWriter {
             bubbles: true,
             composed: true,
             detail: {
-                content: html,
-            },
+                content: html
+            }
         });
         this.#parent.dispatchEvent(finishedEvent);
     }

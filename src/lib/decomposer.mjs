@@ -94,7 +94,7 @@ export default class Decomposer {
                 translated = true;
             }
             if (name === "R") {
-                word = '"';
+                word = "\"";
                 translated = true;
             }
             if (name === "G") {
@@ -128,7 +128,7 @@ export default class Decomposer {
             const end = start + quoted.length - 1;
 
             let letter = "";
-            if (quote === '"') {
+            if (quote === "\"") {
                 letter = "R";
             } else if (quote === "'") {
                 letter = "Q";
@@ -152,7 +152,7 @@ export default class Decomposer {
     doAttributes(attributesText) {
         const result = {};
         const regex =
-            /([\w]*)(\[\])?=(\"([\S ][^"]*)\"|\'([\S]*)\'|\{\{ ([\w]*) \}\}|\{([\S ]*)\})/gm;
+            /([\w]*)(\[\])?=("([\S ][^"]*)"|'([\S]*)'|\{\{ ([\w]*) \}\}|\{([\S ]*)\})/gm;
 
         let matches;
         const attributes = [];
@@ -192,7 +192,8 @@ export default class Decomposer {
             return result;
         }
         result =
-            text.substring(text.length - 5, text.length) === TERMINATOR + CLOSE_TAG;
+            text.substring(text.length - 5, text.length) ===
+            TERMINATOR + CLOSE_TAG;
 
         return result;
     }
@@ -413,8 +414,11 @@ export default class Decomposer {
             if (i % probability !== 0 || item.text.length < 4) {
                 return;
             }
-            const needleCharPos = Math.ceil(Math.random() * item.text.length) - 1;
-            const mistake = String.fromCharCode(Math.ceil(Math.random() * 26) + 96);
+            const needleCharPos =
+                Math.ceil(Math.random() * item.text.length) - 1;
+            const mistake = String.fromCharCode(
+                Math.ceil(Math.random() * 26) + 96
+            );
 
             this.#mistakeCursors.push(item.startsAt + needleCharPos);
             this.#mistakes.push(mistake);
@@ -512,7 +516,9 @@ export default class Decomposer {
         for (let i = newTags.length - 1; i > -1; i--) {
             const tag = newTags[i];
             tag.text =
-                tag.text.substring(0, tag.text.length - 4) + TERMINATOR + CLOSE_TAG;
+                tag.text.substring(0, tag.text.length - 4) +
+                TERMINATOR +
+                CLOSE_TAG;
 
             const begin = result.substring(0, tag.startsAt);
             const end = result.substring(tag.endsAt + 1);
@@ -588,7 +594,13 @@ export default class Decomposer {
 
                 if (!this.isCloserTag(tag) && this.isCloserTag(nextMatch)) {
                     const item = this.makeTag(tag, parentIds, depth, true);
-                    const closer = this.makeTag(nextMatch, parentIds, depth, false, true);
+                    const closer = this.makeTag(
+                        nextMatch,
+                        parentIds,
+                        depth,
+                        false,
+                        true
+                    );
 
                     closer.contents = {};
                     closer.parentId = item.id;

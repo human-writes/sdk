@@ -1,14 +1,27 @@
 {
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
-  "version": "0.5.48",
+  "version": "0.5.49",
   "description": "Write text, HTML and code snippet like a human",
-  "main": "bootstrap.js",
+  "main": "index.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
   "author": "David Blanchard <ohmyinbox99@gmail.com>",
   "license": "GPL-3.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/human-writes.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/human-writes.js",
+      "require": "./dist/human-writes.umd.js"
+    }
+  },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "dev": "webpack --config webpack.config.js",
+    "build": "gulp",
+    "lint": "npx eslint --ext .mjs,.cjs,.js ./src"
   },
   "dependencies": {
     "highlightjs": "^9.16.2"
@@ -26,7 +39,9 @@
     "eslint-plugin-jsdoc": "^45.0.0",
     "eslint-plugin-node": "^11.1.0",
     "glob-parent": "^6.0.2",
+    "path": "^0.12.7",
     "gulp": "^4.0.2",
+    "gulp-clean-css": "4.3.0",
     "gulp-cli": "^2.3.0",
     "prettier": "^2.8.8",
     "webpack": "^5.83.1",
