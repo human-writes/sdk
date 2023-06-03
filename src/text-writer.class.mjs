@@ -110,7 +110,10 @@ export default class TextWriter {
         }
 
         function translate(encodedText) {
-            const decodedText = encodedText.replaceAll(ENCODED_OPEN_TAG, OPEN_TAG);
+            const decodedText = encodedText.replaceAll(
+                ENCODED_OPEN_TAG,
+                OPEN_TAG
+            );
             return decodedText.replaceAll(ENCODED_CLOSE_TAG, CLOSE_TAG);
         }
 
@@ -202,14 +205,19 @@ export default class TextWriter {
         for (let i = 0; i < workingText.length; i++) {
             let c = workingText[i];
 
-            if (this.#parent.makeMistakes && decomposer.phraseStarts.length && decomposer.phraseStarts[0] === i) {
+            if (
+                this.#parent.makeMistakes &&
+                decomposer.mistakes.length &&
+                decomposer.phraseStarts.length &&
+                decomposer.phraseStarts[0] === i
+            ) {
                 const phraseLen = decomposer.phraseLengths[0];
                 for (let j = 0; j < phraseLen; j++) {
                     const pos = i + j;
-                    const mistakeIndex = decomposer.mistakeCursors.indexOf(pos);
+                    const mistakeIndex = decomposer.mistakeCursors[0];
                     c = workingText[pos];
-                    if (mistakeIndex > -1) {
-                        await addChar(decomposer.mistakes[mistakeIndex]);
+                    if (mistakeIndex === pos) {
+                        await addChar(decomposer.mistakes[0]);
                     } else {
                         await addChar(c);
                     }
@@ -226,6 +234,7 @@ export default class TextWriter {
                                 j--;
                             }
 
+                            decomposer.mistakes.shift();
                             decomposer.mistakeCursors.shift();
                         }
                     }
@@ -282,7 +291,11 @@ export default class TextWriter {
                 }
 
                 c = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
-                const { word } = decomposer.translateBracket(c, node.name, true);
+                const { word } = decomposer.translateBracket(
+                    c,
+                    node.name,
+                    true
+                );
 
                 c = word;
 
@@ -339,14 +352,18 @@ export default class TextWriter {
                 c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
 
                 // Is the tag name a bracket?
-                const { word, translated } = decomposer.translateBracket(c, node.name);
+                const { word, translated } = decomposer.translateBracket(
+                    c,
+                    node.name
+                );
                 c = word;
 
                 // Is it an open tag?
                 if (node.hasCloser) {
                     depth++;
 
-                    unshifted = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
+                    unshifted =
+                        OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
 
                     // Is the tag name a bracket?
                     const { word, translated } = decomposer.translateBracket(
@@ -388,7 +405,8 @@ export default class TextWriter {
                     c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
 
                     i += node.text.length - 1;
-                    unshifted = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
+                    unshifted =
+                        OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
 
                     if (hasLF) {
                         unshift(LF + lastIndent + unshifted);
@@ -413,16 +431,19 @@ export default class TextWriter {
                 lastLineFeed = LF + lastIndent;
 
                 const reg0 = reg.length ? reg[0].trim() : "";
-                const nextString = workingText.substring(i + 1, i + reg0.length + 1);
+                const nextString = workingText.substring(
+                    i + 1,
+                    i + reg0.length + 1
+                );
 
                 indentCount++;
 
                 await addChar(lastLineFeed, reg0 === nextString);
+                continue;
             }
 
             // Write any character not matching the cases above
             await addChar(c);
-
         }
 
         // Set back the code text in pure HTML
@@ -430,13 +451,13 @@ export default class TextWriter {
 
         // Raise an event outside the shadow DOM
         // when all is done and ready
-        const finishedEvent = new CustomEvent("finishedWriting", {
-            cancelable: true,
-            composed: true,
-            detail: {
-                content: html,
-            },
-        });
+        // const finishedEvent = new CustomEvent("finishedWriting", {
+        //     cancelable: true,
+        //     composed: true,
+        //     detail: {
+        //         content: html
+        //     }
+        // });
         // this.#parent.dispatchEvent(finishedEvent);
         this.#parent.setAttribute("finished", "true");
     }
