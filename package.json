@@ -1,7 +1,7 @@
 {
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
-  "version": "0.5.49",
+  "version": "0.5.50",
   "description": "Write text, HTML and code snippet like a human",
   "main": "index.js",
   "repository": "git@github.com:ephect-io/human-writes.git",
@@ -18,7 +18,14 @@
       "require": "./dist/human-writes.umd.js"
     }
   },
-  "keywords": ["HTML", "code", "snippet", "webComponents", "human-like", "writing"],
+  "keywords": [
+    "HTML",
+    "code",
+    "snippet",
+    "webComponents",
+    "human-like",
+    "writing"
+  ],
   "scripts": {
     "dev": "webpack --config webpack.config.js",
     "build": "gulp",

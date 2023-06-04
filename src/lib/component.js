@@ -1,17 +1,6 @@
-import TextWriter from "./text-writer.class.mjs";
-
-export default class TextWriterComponent extends HTMLElement {
+export default class WriterComponent extends HTMLElement {
     constructor() {
         super();
-
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.innerHTML = `
-<div class="text-snippet">
-    <div class="to-be-written">
-        <div id="to-write"></div>
-    </div>
-</div>
-`;
     }
 
     static get observeAttributes() {
@@ -19,7 +8,7 @@ export default class TextWriterComponent extends HTMLElement {
          * Attributes passed inline to the component
          */
         return [
-            "text",
+            "source",
             "speed",
             "depends-on-selector",
             "make-mistakes",
@@ -29,8 +18,8 @@ export default class TextWriterComponent extends HTMLElement {
         ];
     }
 
-    get text() {
-        return this.getAttribute("text") ?? null;
+    get source() {
+        return this.getAttribute("source") ?? null;
     }
 
     get speed() {
@@ -87,43 +76,34 @@ export default class TextWriterComponent extends HTMLElement {
                 (component.tagName === "TEXT-WRITER" ||
                     component.tagName === "CODE-WRITER")
             ) {
-                // this.addEventListener("finishedWriting", (e) => {
-                //     const base = new TextWriter(this);
-                //     base.writeLikeAHuman("to-write");
-                // })
-
                 // Options for the observer (which mutations to observe)
                 const config = { attributes: true };
 
                 // Callback function to execute when mutations are observed
-                const callback = (mutationList, observer) => {
-                    for (const mutation of mutationList) {
-                        if (
-                            mutation.type === "attributes" &&
-                            mutation.attributeName === "finished"
-                        ) {
-                            // console.log(`The ${mutation.attributeName} attribute was modified.`);
-
-                            if (component.finished) {
-                                // Later, you can stop observing
-                                observer.disconnect();
-
-                                const base = new TextWriter(this);
-                                base.writeLikeAHuman("to-write");
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(
+                    (mutationList, observer) => {
+                        for (const mutation of mutationList) {
+                            if (
+                                mutation.type === "attributes" &&
+                                mutation.attributeName === "finished"
+                            ) {
+                                if (component.finished) {
+                                    observer.disconnect();
+                                    this.writeLikeAHuman();
+                                }
                             }
                         }
                     }
-                };
-
-                // Create an observer instance linked to the callback function
-                const observer = new MutationObserver(callback);
+                );
 
                 // Start observing the target node for configured mutations
                 observer.observe(component, config);
             }
         } else {
-            const base = new TextWriter(this);
-            base.writeLikeAHuman("to-write");
+            this.writeLikeAHuman();
         }
     }
+
+    writeLikeAHuman() {}
 }

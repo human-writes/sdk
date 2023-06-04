@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 // Here, you write different options and tell Webpack what to do
 export default {
     // Path to your entry point. From this file Webpack will begin its work
-    entry: "./bootstrap.js",
+    entry: "./index.js",
 
     // Path and filename of your result bundle.
     // Webpack will bundle all JavaScript into this file

@@ -1,4 +1,4 @@
-import Decomposer from "./lib/decomposer.mjs";
+import Decomposer from "./decomposer.js";
 
 const ENCODED_OPEN_TAG = "&lt;";
 const ENCODED_CLOSE_TAG = "&gt;";
@@ -7,16 +7,20 @@ const CLOSE_TAG = ">";
 const TERMINATOR = "/";
 const LF = "\n";
 
-export default class TextWriter {
+export default class CodeWriter {
     #parent = null;
 
     constructor(parent) {
         this.#parent = parent;
     }
 
-    async writeLikeAHuman(target) {
+    async writeLikeAHuman(target, source) {
+        const isCodeWriter = source !== undefined;
+        const sourceComponent = this.#parent.shadowRoot.querySelector(
+            `pre#${source} code`
+        );
         const targetComponent = this.#parent.shadowRoot.querySelector(
-            `div#${target}`
+            isCodeWriter ? `pre#${target} code` : `div#${target}`
         );
         let speed = this.#parent.speed;
         let reg = [];
@@ -54,6 +58,9 @@ export default class TextWriter {
 
             html += c;
             targetComponent.innerHTML = html + tail;
+            if (isCodeWriter && window.hljs !== undefined) {
+                window.hljs.highlightElement(targetComponent);
+            }
 
             await delay(speed);
         }
@@ -98,6 +105,11 @@ export default class TextWriter {
             return indentedHtml.replace(regex, "");
         }
 
+        function makeEmptyText(text) {
+            const lines = text.split("\n");
+            return "<br />".repeat(lines.length);
+        }
+
         async function loadText(url) {
             let loadedText = "";
             await fetch(url)
@@ -139,35 +151,36 @@ export default class TextWriter {
             return stack[stack.length - 1];
         }
 
-        // function nextUnshift() {
-        //   if (!toUnshift.length) {
-        //     return null;
-        //   }
+        // eslint-disable-next-line consistent-return
+        function nextUnshift() {
+            if (!toUnshift.length) {
+                return null;
+            }
 
-        //   const closer = toUnshift.pop();
-        //   const contentHasLF = toUnshiftHasLF.pop();
-        //   if (contentHasLF) {
-        //     unshift(LF + lastIndent + closer);
-        //   } else {
-        //     unshift(closer);
-        //   }
-        // }
+            const closer = toUnshift.pop();
+            const contentHasLF = toUnshiftHasLF.pop();
+            if (contentHasLF) {
+                unshift(LF + lastIndent + closer);
+            } else {
+                unshift(closer);
+            }
+        }
 
-        function findLastNodeOfDepth(nodoDepth) {
+        function findLastNodeOfDepth(nodeDepth) {
             let result = null;
             if (!stack.length) {
                 return result;
             }
 
             result = lastNode();
-            if (nodoDepth === result.depth) {
+            if (nodeDepth === result.depth) {
                 return result;
             }
 
             let isFound = false;
             for (let i = stack.length - 1; i > -1; i--) {
                 result = stack[i];
-                if (nodoDepth === result.depth) {
+                if (nodeDepth === result.depth) {
                     isFound = true;
                     break;
                 }
@@ -181,14 +194,16 @@ export default class TextWriter {
 
         const codeSource = this.#parent.getAttribute("source") ?? "";
 
+        if (isCodeWriter && window.hljs !== undefined) {
+            window.hljs.highlightElement(sourceComponent);
+        }
         text = await loadText(codeSource);
 
         // Seek and destroy indents
         const indents = parseIndents(text);
         text = deleteIndents(text);
 
-        const decomposer = new Decomposer(text);
-
+        const decomposer = new Decomposer(text, isCodeWriter);
         decomposer.doComponents();
         nodes = [...decomposer.list];
 
@@ -197,13 +212,22 @@ export default class TextWriter {
             ""
         );
 
+        if (isCodeWriter) {
+            sourceComponent.innerHTML = makeEmptyText(text + "\n");
+        }
+
         const firstIndent = indents[indentCount] ?? "";
         await addChar(firstIndent);
         indentCount++;
-        node = null;
 
         for (let i = 0; i < workingText.length; i++) {
             let c = workingText[i];
+
+            if (isCodeWriter && c === OPEN_TAG) {
+                c = ENCODED_OPEN_TAG;
+                await addChar(c);
+                continue;
+            }
 
             if (
                 this.#parent.makeMistakes &&
@@ -281,6 +305,41 @@ export default class TextWriter {
                 continue;
             }
 
+            if (isCodeWriter) {
+                if (
+                    c === "/" &&
+                    next5chars === TERMINATOR + ENCODED_CLOSE_TAG
+                ) {
+                    if (
+                        node !== null &&
+                        !node.hasCloser &&
+                        node.endsAt === i + 4
+                    ) {
+                        c = TERMINATOR + ENCODED_CLOSE_TAG;
+                        shift();
+                        await addChar(c);
+                        i += 4;
+                        continue;
+                    }
+                }
+
+                // In case of a "greater than" character
+                // potentially closing a single parsed tag
+                if (c === "&" && next4chars === ENCODED_CLOSE_TAG) {
+                    if (node !== null && node.endsAt === i + 3) {
+                        shift();
+
+                        await addChar(ENCODED_CLOSE_TAG);
+                        if (node.hasCloser) {
+                            nextUnshift();
+                        }
+                        i += 3;
+
+                        continue;
+                    }
+                }
+            }
+
             // In case of a "lower than" character
             // potentially closing an open parsed tag
             if (c === "&" && next5chars === ENCODED_OPEN_TAG + TERMINATOR) {
@@ -290,7 +349,10 @@ export default class TextWriter {
                     node = findLastNodeOfDepth(depth - 1);
                 }
 
-                c = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
+                c = node.closer.text;
+                if (!isCodeWriter) {
+                    c = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
+                }
                 const { word } = decomposer.translateBracket(
                     c,
                     node.name,
@@ -334,9 +396,13 @@ export default class TextWriter {
                 // the start of a parsed tag
                 if (node.startsAt !== i) {
                     // Write it and prevent taking the next node
-                    c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG);
-                    c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
-
+                    if (isCodeWriter) {
+                        c = ENCODED_OPEN_TAG;
+                        i += 3;
+                    } else {
+                        c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG);
+                        c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
+                    }
                     await addChar(c);
                     node.dirty = false;
                     continue;
@@ -348,9 +414,11 @@ export default class TextWriter {
                 let hasLF = false;
                 let unshifted = "";
 
-                c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG);
-                c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
-
+                c = node.text;
+                if (!isCodeWriter) {
+                    c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG);
+                    c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
+                }
                 // Is the tag name a bracket?
                 const { word, translated } = decomposer.translateBracket(
                     c,
@@ -362,8 +430,14 @@ export default class TextWriter {
                 if (node.hasCloser) {
                     depth++;
 
-                    unshifted =
-                        OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
+                    unshifted = node.closer.text;
+                    if (!isCodeWriter) {
+                        unshifted =
+                            OPEN_TAG +
+                            TERMINATOR +
+                            node.closer.name +
+                            CLOSE_TAG;
+                    }
 
                     // Is the tag name a bracket?
                     const { word, translated } = decomposer.translateBracket(
@@ -401,12 +475,21 @@ export default class TextWriter {
                     // Does the tag string contain an LF character?
                     hasLF = node.text.indexOf(LF) > -1;
 
-                    c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG);
-                    c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
+                    if (isCodeWriter) {
+                        c = ENCODED_OPEN_TAG;
+                        i += 3;
+                        unshifted = ENCODED_CLOSE_TAG;
+                    } else {
+                        c = node.text.replace(ENCODED_OPEN_TAG, OPEN_TAG);
+                        c = c.replace(ENCODED_CLOSE_TAG, CLOSE_TAG);
 
-                    i += node.text.length - 1;
-                    unshifted =
-                        OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
+                        i += node.text.length - 1;
+                        unshifted =
+                            OPEN_TAG +
+                            TERMINATOR +
+                            node.closer.name +
+                            CLOSE_TAG;
+                    }
 
                     if (hasLF) {
                         unshift(LF + lastIndent + unshifted);
@@ -451,14 +534,14 @@ export default class TextWriter {
 
         // Raise an event outside the shadow DOM
         // when all is done and ready
-        // const finishedEvent = new CustomEvent("finishedWriting", {
-        //     cancelable: true,
-        //     composed: true,
-        //     detail: {
-        //         content: html
-        //     }
-        // });
-        // this.#parent.dispatchEvent(finishedEvent);
+        const finishedEvent = new CustomEvent("finishedWriting", {
+            bubbles: true,
+            composed: true,
+            detail: {
+                content: html
+            }
+        });
+        this.#parent.dispatchEvent(finishedEvent);
         this.#parent.setAttribute("finished", "true");
     }
 }
