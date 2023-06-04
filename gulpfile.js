@@ -9,12 +9,12 @@ const __dirname = path.dirname(__filename);
 
 gulp.task("default", () =>
     gulp
-        .src("./bootstrap.js")
+        .src("./index.js")
         .pipe(
             webpack({
                 // Any configuration options...
                 // Path to your entry point. From this file Webpack will begin its work
-                entry: "./bootstrap.js",
+                entry: "./index.js",
 
                 // Path and filename of your result bundle.
                 // Webpack will bundle all JavaScript into this file

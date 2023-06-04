@@ -1,4 +1,4 @@
-import Decomposer from "./decomposer.mjs";
+import Decomposer from "./decomposer.js";
 
 const ENCODED_OPEN_TAG = "&lt;";
 const ENCODED_CLOSE_TAG = "&gt;";
@@ -353,7 +353,7 @@ export default class CodeWriter {
                 if (!isCodeWriter) {
                     c = OPEN_TAG + TERMINATOR + node.closer.name + CLOSE_TAG;
                 }
-                const { word, translated } = decomposer.translateBracket(
+                const { word } = decomposer.translateBracket(
                     c,
                     node.name,
                     true

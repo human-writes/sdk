@@ -1,5 +1,5 @@
-import Writer from "./lib/writer.mjs";
-import WriterComponent from "./lib/component.mjs";
+import Writer from "./lib/writer.js";
+import WriterComponent from "./lib/component.js";
 
 export default class TextWriterComponent extends WriterComponent {
     constructor() {
