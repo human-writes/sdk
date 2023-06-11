@@ -32,7 +32,7 @@
     "lint": "npx eslint --ext .mjs,.cjs,.js ./src"
   },
   "dependencies": {
-    "highlightjs": "^9.16.2"
+    "highlight.js": "^11.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",

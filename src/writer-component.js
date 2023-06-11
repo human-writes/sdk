@@ -1,7 +1,4 @@
 export default class WriterComponent extends HTMLElement {
-    constructor() {
-        super();
-    }
 
     static get observeAttributes() {
         /**
@@ -11,7 +8,7 @@ export default class WriterComponent extends HTMLElement {
             "source",
             "speed",
             "depends-on-selector",
-            "make-mistakes",
+            "make-typos",
             "styles",
             "classes",
             "finished"
@@ -30,8 +27,8 @@ export default class WriterComponent extends HTMLElement {
         return this.getAttribute("depends-on-selector") ?? null;
     }
 
-    get makeMistakes() {
-        const result = this.getAttribute("make-mistakes") ?? "";
+    get makeTypos() {
+        const result = this.getAttribute("make-typos") ?? "";
         return result.toLowerCase() === "true";
     }
 
@@ -82,7 +79,7 @@ export default class WriterComponent extends HTMLElement {
                 // Callback function to execute when mutations are observed
                 // Create an observer instance linked to the callback function
                 const observer = new MutationObserver(
-                    (mutationList, observer) => {
+                    async (mutationList, observer) => {
                         for (const mutation of mutationList) {
                             if (
                                 mutation.type === "attributes" &&
@@ -90,7 +87,7 @@ export default class WriterComponent extends HTMLElement {
                             ) {
                                 if (component.finished) {
                                     observer.disconnect();
-                                    this.writeLikeAHuman();
+                                    await this.writeLikeAHuman();
                                 }
                             }
                         }
@@ -101,9 +98,9 @@ export default class WriterComponent extends HTMLElement {
                 observer.observe(component, config);
             }
         } else {
-            this.writeLikeAHuman();
+            await this.writeLikeAHuman();
         }
     }
 
-    writeLikeAHuman() {}
+    async writeLikeAHuman() {}
 }
