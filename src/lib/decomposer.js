@@ -2,7 +2,7 @@ const OPEN_TAG = "&lt;";
 const CLOSE_TAG = "&gt;";
 const TERMINATOR = "/";
 
-export default class Decomposer {
+export class Decomposer {
     #list = [];
     #text = "";
     #workingText = "";

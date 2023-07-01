@@ -1,4 +1,4 @@
-import Decomposer from "./decomposer.js";
+import { Decomposer } from "./decomposer.js";
 
 const ENCODED_OPEN_TAG = "&lt;";
 const ENCODED_CLOSE_TAG = "&gt;";
@@ -118,7 +118,7 @@ export class Writer {
 
         function makeEmptyText(text) {
             const lines = text.split("\n");
-            return "<br />".repeat(lines.length);
+            return "<br />\n".repeat(lines.length);
         }
 
         async function loadText(url) {
@@ -205,9 +205,6 @@ export class Writer {
 
         const codeSource = this.#source;
 
-        if (isCodeWriter && window.hljs !== undefined) {
-            window.hljs.highlightElement(sourceComponent);
-        }
         text = await loadText(codeSource);
 
         // Seek and destroy indents
@@ -225,6 +222,10 @@ export class Writer {
 
         if (isCodeWriter) {
             sourceComponent.innerHTML = makeEmptyText(text + "\n");
+
+            if (window.hljs !== undefined) {
+                window.hljs.highlightElement(sourceComponent);
+            }
         }
 
         const firstIndent = indents[indentCount] ?? "";
