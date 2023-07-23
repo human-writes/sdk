@@ -2,7 +2,7 @@
   "name": "@human-writes/aio",
   "packageManager": "yarn@3.5.1",
   "description": "Write HTML and code snippet like a human",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "main": "index.js",
   "scripts": {
     "dev": "sh scripts/dev.sh all",
