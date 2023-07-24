@@ -1,4 +1,7 @@
 <script setup>
+
+import { TextWriter } from "@human-writes/aio/vue";
+
 defineProps({
   msg: {
     type: String,
@@ -6,6 +9,7 @@ defineProps({
   }
 })
 </script>
+
 
 <template>
   <div class="greetings">

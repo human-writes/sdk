@@ -40,7 +40,16 @@ export class Writer {
         const targetComponent =
             this.#ownerDocument.querySelector(toWriteSelector);
 
-        console.log({ toWriteSelector, targetComponent });
+        if (targetComponent === null) {
+            // TODO throw the exception and make a test that handle it
+            
+            // throw new Error(
+            //     "The selector <" +
+            //         toWriteSelector +
+            //         "> does not exist in the DOM"
+            // );
+            return;
+        }
 
         let speed = this.#speed;
         let reg = [];
@@ -232,10 +241,7 @@ export class Writer {
         );
 
         if (isCodeWriter) {
-            console.log({ sourceComponent });
-
             const emptyText = makeEmptyText(text + "\n");
-            console.log({ emptyText });
             sourceComponent.innerHTML = emptyText;
 
             if (window.hljs !== undefined) {
