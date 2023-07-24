@@ -18,7 +18,7 @@ then
 
     echo;
     echo "Linitng Vite/Vue3 plugin...";
-    cd vue;npx eslint . --ext .vue,.js,.cjs,.mjs --fix --ignore-path .gitignore,dist/;
+    cd vue;npx eslint . --ext .vue,.js,.cjs,.mjs --fix;
     cd $CWD;
 
     exit 0;
