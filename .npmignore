@@ -1,4 +1,5 @@
 .git
 .github
+.yarn
 build
 node_modules
