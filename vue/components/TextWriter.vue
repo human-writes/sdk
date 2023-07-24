@@ -51,10 +51,13 @@ onMounted(async () => {
     const $doc = root.value.ownerDocument;
 
     const $slotTag = $doc.querySelector("div.to-write." + paperId.value);
-    // TODO: catch the code
-    console.log({ slot: $slotTag.innerHTML, cl: ".me ." + paperId.value });
-    source.value = props.source === "" ? "#!text#" + $slotTag.innerHTML : props.source;
-    $slotTag.innerText = ''
+    let slotHTML = "";
+    if ($slotTag !== null) {
+        slotHTML = $slotTag?.innerHTML;
+        $slotTag.innerText = "";
+    }
+
+    source.value = props.source === "" ? "#!text#" + slotHTML : props.source;
 
     /**
      * The magic starts here
