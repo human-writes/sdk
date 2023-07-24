@@ -31,8 +31,8 @@ then
     cd vue;vite build && vue-tsc --emitDeclarationOnly;cd $CWD;
 
     echo;
-    echo "Building Vite/Vue3 test app...";
-    cd tests;vite build;cd $CWD;
+    echo "Building Vite/Vue3 demo app...";
+    cd demo;vite build;cd $CWD;
 
     exit 0;
 fi
