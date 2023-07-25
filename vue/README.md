@@ -7,13 +7,13 @@ If you have a Vue3 based project you will surely prefer to use the Vue3 plugin.
 ## Installation
 
 ```bash
-npm install @human-writes/aio
+npm install human-writes
 ```
 
 or
 
 ```bash
-yarn add @human-writes/aio
+yarn add human-writes
 ```
 
 ## Application setup
@@ -21,7 +21,7 @@ yarn add @human-writes/aio
 In your main.js or main.ts add:
 
 ```javascript
-import {VueWriterPlugin} from '@human-writes/aio/vue'
+import {VueWriterPlugin} from 'human-writes/vue'
 
 const app = createApp(App)
 app.use(VueWriterPlugin, {speed: 40, makeTypos: false})
@@ -125,16 +125,16 @@ can wait for CodeWriter and vice versa.
 Download the zip archive:
 
 ```sh
-wget https://github.com/human-writes/aio/archive/refs/heads/main.zip
+wget https://github.com/ephect-io/human-writes/archive/refs/heads/main.zip
 unzip main.zip
-cd aio-main
+cd human-writes-main
 ```
 
 or clone the repo as anonymous:
 
 ```sh
-git clone https://github.com/human-writes/aio.git
-cd aio
+git clone https://github.com/ephect-io/human-writes.git
+cd human-writes
 ```
 
 install the modules and launch the demo app
