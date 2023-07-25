@@ -40,7 +40,7 @@ node_modules/
 *.code-workspace
 .vscode
 .vs
-.idea
+.idea/*
 .nbproject
 
 # yarn v2
