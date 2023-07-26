@@ -1,13 +1,13 @@
 <script setup>
 
-import { TextWriter } from "@human-writes/aio/vue";
+import {TextWriter} from "human-writes/vue";
 
 defineProps({
   msg: {
     type: String,
     required: true
   }
-})
+});
 </script>
 
 
