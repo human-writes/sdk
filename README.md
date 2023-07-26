@@ -70,12 +70,21 @@ display. The delay is 60 milliseconds by default.
 
 You can access these features via the following properties:
 
-- make-typos: _**boolean**_, enable typos if *true*
+- source: _**string**_, URI of the text to write,
+- make-typos: _**boolean**_, enable typos if *true*, defaults to *false*,
 - depends-on-selector: _**string**_, DOM query selector to chain components together,
 - speed: _**number**_ between 0 and 80, delay in milliseconds between each written character,
 - styles:  _**string**_, comma separated list of relative URI of CSS files to import,
 - classes: _**string**_, comma separated list of CSS classes imported by styles,
 
+### Features reserved to CodeWriter
+
+Additionally to commone features, CodeWriter also has:
+
+- use-highlight-js: _**boolean**_, enable syntax coloration if *true*, defaults to *false*,
+- language: _**string**_, apply a highlightJS language style, only if *use-highlight-js* is *true*, defaults to *HTML*
+- theme: _**string**_, apply a highlightJS theme style, only if *use-highlight-js* is *true*, defaults to *none*
+  
 ## What will never work
 
 You cannot set a code snippet as source of TextWriter, it will not write what you expect and won't raise an error for
