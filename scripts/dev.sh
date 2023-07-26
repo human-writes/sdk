@@ -28,7 +28,7 @@ then
     echo;
     echo "Building Vite/Vue3 plugin...";
     rm -rf vue/dist;
-    cd vue;vite build && vue-tsc --emitDeclarationOnly;cd $CWD;
+    cd vue;vue-tsc --emitDeclarationOnly && vite build;cd $CWD;
 
     echo;
     echo "Building Vite/Vue3 demo app...";

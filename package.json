@@ -8,7 +8,7 @@
     "dev": "sh scripts/dev.sh all",
     "build": "sh scripts/build.sh all",
     "lint": "sh scripts/lint.sh all",
-    "demo": "cd demo;vite",
+    "demo": "cd demo;vue-tsc --noEmit && vite",
     "tests": "cd demo;vitest"
   },
   "repository": {

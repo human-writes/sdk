@@ -1,5 +1,2 @@
-{
-  "dependencies": {
-    "human-writes": "^0.6.0"
-  }
-}
+{"dependencies":{"human-writes":"file:.."}}
+
