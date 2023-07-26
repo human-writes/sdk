@@ -2,13 +2,13 @@
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
   "description": "Write HTML and code snippet like a human",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "main": "index.js",
   "scripts": {
     "dev": "sh scripts/dev.sh all",
     "build": "sh scripts/build.sh all",
     "lint": "sh scripts/lint.sh all",
-    "demo": "cd demo;vite",
+    "demo": "cd demo;vue-tsc --noEmit && vite",
     "tests": "cd demo;vitest"
   },
   "repository": {
