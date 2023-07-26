@@ -19,8 +19,7 @@ TextWriter can help you to catch the attention of the visitor on this part of yo
 
 ### CodeWriter
 
-You have an IT oriented technical documentation, and you want to share code snippets. This is a quite common use-case
-nowadays.
+You have an IT oriented technical documentation, and you want to share code snippets.
 
 ## Installation and usage
 
@@ -54,24 +53,39 @@ CodeWriter manages the opening and closing of:
 
 It also works for tags within quotes, for instance when a component attribute holds a bit of code.
 
-CodeWriter supports code highlighting thanks to HighlightJS library integration. All resources of the HighlightJS
-library are requested inside the web component, so you do not have to worry about them.
+CodeWriter supports code highlighting thanks to HighlightJS library integration.
 
-### Common features
-
-The writing speed depends on the delay between two charaters plus the process time to determine the character to
-display. The delay is 60 milliseconds by default.
+### Common features and properties
 
 Both components also propose to:
 
 - make typos :angry:
 - correct typos right away :smile:
-- chain two components with the parameter _depends-on-selector_: For instance, with 2 components, if the second
-  references the
-  first it starts when the first finishes.
+- chain two components, or more, together: For instance, with 2 components, if the second
+  references the first it starts when the first finishes.
 - write at random speed: The speed is computed from 25% faster to 75% slower than the given speed parameter.
 
-### What will never work
+The writing speed depends on the delay between two charaters plus the process time to determine the character to
+display. The delay is 60 milliseconds by default.
+
+You can access these features via the following properties:
+
+- source: _**string**_, URI of the text to write,
+- make-typos: _**boolean**_, enable typos if *true*, defaults to *false*,
+- depends-on-selector: _**string**_, DOM query selector to chain components together,
+- speed: _**number**_ between 0 and 80, delay in milliseconds between each written character,
+- styles:  _**string**_, comma separated list of relative URI of CSS files to import,
+- classes: _**string**_, comma separated list of CSS classes imported by styles,
+
+### Features reserved to CodeWriter
+
+Additionally to commone features, CodeWriter also has:
+
+- use-highlight-js: _**boolean**_, enable syntax coloration if *true*, defaults to *false*,
+- language: _**string**_, apply a highlightJS language style, only if *use-highlight-js* is *true*, defaults to *HTML*
+- theme: _**string**_, apply a highlightJS theme style, only if *use-highlight-js* is *true*, defaults to *none*
+  
+## What will never work
 
 You cannot set a code snippet as source of TextWriter, it will not write what you expect and won't raise an error for
 it.

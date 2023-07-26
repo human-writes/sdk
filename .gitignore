@@ -49,3 +49,4 @@ node_modules/
 
 # builds
 dist
+test/public
