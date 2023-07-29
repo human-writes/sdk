@@ -1,6 +1,6 @@
 <script setup>
 
-import {TextWriter} from "human-writes/vue";
+import {TextWriter} from "human-writes";
 
 defineProps({
   msg: {

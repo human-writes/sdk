@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import { VueWriterPlugin } from 'human-writes/vue'
+import { VueWriterPlugin } from 'human-writes'
 
 const app = createApp(App)
 

@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import  "human-writes/style.css"
+</script>
 
 <template>
     <div>

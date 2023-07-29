@@ -11,12 +11,18 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
     plugins: [vue()],
     build: {
+        outDir: "../dist",
         lib: {
             // Could also be a dictionary or array of multiple entry points
             entry: resolve(__dirname, "index.ts"),
             name: "VuePlugin",
             // the proper extensions will be added
-            fileName: "vue-plugin"
+            fileName: "vue-plugin",
+        },
+        commonJsOptions: {
+            include: [
+                "../dist/vue-plugin.umd.cjs"
+            ]
         },
         rollupOptions: {
             // make sure to externalize deps that shouldn't be bundled

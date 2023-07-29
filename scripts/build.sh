@@ -12,8 +12,8 @@ fi
 if [ "$TARGET"=="all" ];
 then
 
+    rm -rf dist;
     echo "Building web components...";
-    rm -rf web/dist;
     cd web;gulp;cd $CWD;
 
     if [ ! -f web/dist/human-writes.min.js ];
@@ -27,8 +27,13 @@ then
 
     echo;
     echo "Building Vite/Vue3 plugin...";
-    rm -rf vue/dist;
-    cd vue;vue-tsc --emitDeclarationOnly && vite build;cd $CWD;
+    cd vue;vite build && vue-tsc --emitDeclarationOnly;cd $CWD;
+
+    echo;
+    echo "Moving web components to global dist directoery..."
+    mkdir dist/web;
+    cp -rfv web/dist/* dist/web;
+    rm -rf web/dist;
 
     echo;
     echo "Building Vite/Vue3 demo app...";

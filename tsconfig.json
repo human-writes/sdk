@@ -17,7 +17,7 @@
     "isolatedModules": false,
     // "noEmit": true,
     "jsx": "preserve",
-    "outDir": "../dist",
+    "outDir": "dist",
     "declaration": true,
     "allowJs": true,
     /* Linting */
@@ -27,9 +27,9 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "types/*.ts",
-    "components/*.vue",
-    "../index.js",
+    "vue/*.ts",
+    "vue/components/*.vue",
+    "vue/index.ts",
   ],
   "references": [
     {

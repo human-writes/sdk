@@ -3,19 +3,34 @@
   "packageManager": "yarn@3.5.1",
   "description": "Write HTML and code snippet like a human",
   "version": "0.6.2",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "sh scripts/dev.sh all",
     "build": "sh scripts/build.sh all",
     "lint": "sh scripts/lint.sh all",
-    "demo": "cd demo;vue-tsc --noEmit && vite",
+    "demo": "cd demo;vite && vue-tsc",
     "tests": "cd demo;vitest"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "package-lock.json",
+    "package.json"
+  ],
+  "main": "index.ts",
+  "module": "./dist/vue-plugin.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-plugin.js",
+      "require": "./dist/vue-plugin.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "types": "./dist/types",
   "repository": {
     "type": "git",
     "url": "git@github.com:ephect-io/human-writes.git"
   },
-  "type": "module",
   "keywords": [
     "HTML",
     "code-snippet",
