@@ -1,8 +1,8 @@
 ![Vue3 plugin](../assets/vue-logo_128px.png)
 
-# The Vue3 plugin
+# The **Vue3** plugin
 
-If you have a Vue3 based project you will surely prefer to use the Vue3 plugin.
+If you have a **Vue3** based project you will surely prefer to use the **Vue3** plugin.
 
 ## Installation
 
@@ -21,29 +21,20 @@ yarn add human-writes
 In your main.js or main.ts add:
 
 ```javascript
-import {VueWriterPlugin} from 'human-writes/vue'
+import {VueWriterPlugin} from 'human-writes'
 
 const app = createApp(App)
+
 app.use(VueWriterPlugin, {speed: 40, makeTypos: false})
+
+app.mount('#app')
 ```
 
-You can then place both TextWriter and CodeWriter anywhere in the application without declaring them.
-Example of Vue3 component with TextWriter only:
-
-```html
-
-<template>
-    <div>
-        <text-writer>
-            <h1 class="green">Hello World!</h1>
-        </text-writer>
-    </div>
-</template>
-```
+You can then place both **TextWriter** and **CodeWriter** anywhere in the application without declaring them.
 
 ## Implementation
 
-Let's say you have a Vue3 project tree looking like this:
+Let's say you have a **Vue3** project tree looking like this:
 
 ```text
 /public/
@@ -61,7 +52,7 @@ index.html
 
 ### Using TextWriter
 
-Where _My.vue_ could implement a TextWriter component like this:
+Where _My.vue_ could implement a **TextWriter** component like this:
 
 ```html
 
@@ -91,10 +82,14 @@ If the text is simple, you can just set it within the component as follows:
 
 ### Using CodeWriter
 
-As opposed to TextWriter component, CodeWriter cannot handle code snippets as innerHTML content, the remote resource URL
-is mandatory.
+As opposed to **TextWriter** component, **CodeWriter** cannot handle code snippets as innerHTML content, the remote
+resource URL is mandatory. Don't forget to import the style.
 
 ```html
+
+<script setup>
+    import "human-writes/style.css";
+</script>
 
 <code-writer
         depends-on-selector="#hello"
@@ -106,11 +101,6 @@ is mandatory.
 </code-writer>
 ```
 
-Note that when using the Vue3 plugin, as opposed to web components, you cannot point the component by its tag name since
-Vue3 only renders the content
-of the component. The attributes of the Vue3 plugin are transferred to the first child of the plugin content which is a
-div.
-
 ### Chaining the components
 
 As you can note in CodeWrite sample, we use
@@ -118,7 +108,14 @@ As you can note in CodeWrite sample, we use
     depends-on-selector="#hello"
 
 This directive will tell the component to wait for the component with id "Hello" to finish writing the text. TextWriter
-can wait for CodeWriter and vice versa.
+can wait for **CodeWriter** and vice versa.
+
+Note that the following selector may work with a web component but **_not_** with a **Vue3** component.
+
+    depends-on-selector="text-writer[name='hello']"
+
+**Vue3** only renders the content of the component. The attributes of the **Vue3** component are transferred to the
+first child which is a **div**.
 
 ## Playing the demo
 
