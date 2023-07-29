@@ -3,7 +3,7 @@
 # The web components
 
 The web component solution is mostly preferable for backend oriented applications that don't share a setup with NodeJS
-or with fully static HTML sites.
+or that generate fully static HTML sites.
 
 ## Installation
 
@@ -41,7 +41,7 @@ composer.json
 
 ### TextWriter
 
-Store your text block in a place accessible by URL and declare it as a source of the component.
+Example of **TextWriter** web component.
 
 ```html
 
@@ -56,9 +56,11 @@ Store your text block in a place accessible by URL and declare it as a source of
 </text-writer>
 ```
 
+As opposed to the **Vue3** plugin, **TextWriter** web component cannot handle the text as a innerHTML content.
+
 ### CodeWriter
 
-Store your block of code in a place accessible by URL and declare it as a source of the component.
+Example of **CodeWriter** web component.
 
 ```html
 
@@ -78,8 +80,9 @@ As you can note in CodeWrite sample, we use
 
     depends-on-selector="text-writer[name='hello']"
 
-This directive will tell the component to wait for the component with id "Hello" to finish writing the text. TextWriter
-can wait for CodeWriter and vice versa.
+This directive will tell the component to wait for the component of type **text-writer** with name "hello" to finish
+writing the text. **TextWriter** can wait for **CodeWriter** and vice versa. Two components waiting for the same
+component will start at once.
 
 ## Live demo
 

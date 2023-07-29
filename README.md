@@ -77,21 +77,44 @@ You can access these features via the following properties:
 - styles:  _**string**_, comma separated list of relative URI of CSS files to import,
 - classes: _**string**_, comma separated list of CSS classes imported by styles,
 
-### Features reserved to CodeWriter
+```html
 
-Additionally to commone features, CodeWriter also has:
+<text-writer
+        name="hello"
+        source="/texts/introduction.html"
+        speed="20"
+        make-typos="true"
+        styles="/css/index.css,/css/app.css"
+        classes="App-content"
+>
+</text-writer>
+```
+
+### CodeWriter reserved features and properties
+
+Only CodeWriter can benefit of syntax coloration. It works with these properties:
 
 - use-highlight-js: _**boolean**_, enable syntax coloration if *true*, defaults to *false*,
 - language: _**string**_, apply a highlightJS language style, only if *use-highlight-js* is *true*, defaults to *HTML*
 - theme: _**string**_, apply a highlightJS theme style, only if *use-highlight-js* is *true*, defaults to *none*
-  
-## What will never work
 
-You cannot set a code snippet as source of TextWriter, it will not write what you expect and won't raise an error for
-it.
+```html
 
-You can set a text as source of CodeWriter, but it will not be as readable as expected and won't raise an error for it.
+<code-writer
+        depends-on-selector="text-writer[name='hello']"
+        source="/my-block-of-code.html"
+        use-highlight-js="true"
+        theme="base16/monokai"
+        language="php"
+>
+</code-writer>
+```
 
-## Help
+### Nota bene
 
-[Help](help/README.md)
+The above documentation is shared among web components and Vue3 plugin since the code base of the components is the
+same, but both solutions differ on implementation and how they render in the DOM. See the specific README for more info.
+
+## Appendix
+
+[Q & A](help/README.md)

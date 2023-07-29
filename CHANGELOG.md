@@ -1,8 +1,13 @@
 # CHANGELOG
 
-v0.7.0 - This is now an All-in-One package with web components, Vu3 plugin, Vue3 demo app and tests.
+v0.7.0 - Fix Vue3 plugin types declarations, minimize package footprint and update README.
 
-v0.6.0 - Add a Vu3 plugin.
+v0.6.2 - Breaks the Vue3 plugin due to types declarations issues.
+
+v0.6.1 - Update the README.
+
+v0.6.0 - This is now an All-in-One package with web components and Vu3 plugin. The git repo also adds Vue3 demo app and
+tests.
 
 v0.5.63 - Core files are no more strongly linked to web components.
 
