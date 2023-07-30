@@ -119,3 +119,5 @@ same, but both solutions differ on implementation and how they render in the DOM
 ## Appendix
 
 [Q & A](help/README.md)
+
+[Changelog](CHANGELOG.md)

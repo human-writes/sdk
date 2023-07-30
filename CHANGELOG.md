@@ -1,8 +1,13 @@
 # CHANGELOG
 
-v0.7.0 - Fix Vue3 plugin types declarations, minimize package footprint and update README.
+v0.7.2 - Fix the demo dependencies and clean up the build scripts.
 
-v0.6.2 - Breaks the Vue3 plugin due to types declarations issues.
+v0.7.1 - Same as 0.7.0 but fix the package build.
+
+v0.7.0 - FAIL: great repo but empty package. Fix Vue3 plugin types declarations, redesign the package and update
+README.
+
+v0.6.2 - FAIL: Breaks the Vue3 plugin due to types declarations issues.
 
 v0.6.1 - Update the README.
 
