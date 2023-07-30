@@ -21,6 +21,12 @@ then
     cd vue;vite build && vue-tsc --emitDeclarationOnly;cd $CWD;
 
     echo;
+    echo "Moving web components to global dist directoery..."
+    mkdir dist/web;
+    cp -rfv web/dist/* dist/web;
+    rm -rf web/dist;
+
+    echo;
     echo "Building Vite/Vue3 demo app...";
     cd demo;
     npm install;
