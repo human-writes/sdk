@@ -20,6 +20,6 @@ then
     echo "Linitng Vite/Vue3 plugin...";
     cd vue;npx eslint . --ext .vue,.js,.cjs,.mjs --fix;
     cd $CWD;
-
-    exit 0;
 fi
+
+exit 0;
