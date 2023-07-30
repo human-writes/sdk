@@ -4,7 +4,8 @@
 
 ## What is it?
 
-This package is a set of two components TextWriter and CodeWriter which imitate the human writing style on a keyboard.
+This package is a set of two components **TextWriter** and **CodeWriter** which imitate the human writing style on a
+keyboard.
 
 They are available as web components and as a Vue3 plugin.
 
