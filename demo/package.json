@@ -1,1 +1,9 @@
-{"dependencies":{"human-writes":"file:../human-writes-0.6.2.tgz"}}
+{
+  "peerDependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "dependencies": {
+    "human-writes": "file:.."
+  }
+}
