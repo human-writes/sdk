@@ -18,14 +18,19 @@ then
 
     echo;
     echo "Building Vite/Vue3 plugin...";
-#    rm -rf vue/dist;
-    cd vue;vite build && vue-tsc --emitDeclarationOnly;cd $CWD;
+    cd vue;vite build -d && vue-tsc --emitDeclarationOnly;cd $CWD;
+
+    echo;
+    echo "Moving web components to global dist directoery..."
+    mkdir dist/web;
+    cp -rfv web/dist/* dist/web;
+    rm -rf web/dist;
 
     echo;
     echo "Building Vite/Vue3 demo app...";
     cd demo;
     npm install;
-    vite build;
+    vite preview -d -m dev;
     cd $CWD;
 fi
 

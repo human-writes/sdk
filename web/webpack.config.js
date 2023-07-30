@@ -13,7 +13,7 @@ export default {
   // Path and filename of your result bundle.
   // Webpack will bundle all JavaScript into this file
   output: {
-    path: path.resolve(__dirname, "../dist"),
+    path: path.resolve(__dirname, "dist"),
     publicPath: "",
     filename: "human-writes.min.js"
   },
