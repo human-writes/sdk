@@ -6,35 +6,34 @@
 .code-snippet {
     display: flex;
     font-size: small;
+    width: var(--snippet-width);
 }
 
 .code-snippet .to-be-placed {
     display: block;
     position: relative;
     float: left;
+    width: inherit;
 }
 
 .code-snippet .to-place {
     display: block;
     position: relative;
     float: left;
-    width: var(--snippet-width);
+    width: fit-content;
 }
 
 .code-snippet .to-be-written {
-    display: block;
+    display: flex;
     position: absolute;
-    width: var(--snippet-width);
+    width: inherit;
 }
 
 .code-snippet .to-write {
-    width: var(--snippet-width);
+    width: fit-content;
 }
 
-.code-snippet div,
-p,
-span,
-textarea {
+.code-snippet div, p, span, textarea {
     -tab-size: 4;
     -o-tab-size: 4;
     -moz-tab-size: 4;
