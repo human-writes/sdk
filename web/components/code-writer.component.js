@@ -13,7 +13,7 @@ export default class CodeWriterComponent extends WriterComponent {
 .code-snippet {
     display: flex;
     font-size: small;
-    width: ${this.snippetWidth};
+    width: ${this.mobileWidth};
 }
 
 .code-snippet .to-be-placed {
@@ -46,6 +46,11 @@ export default class CodeWriterComponent extends WriterComponent {
     -moz-tab-size: 4;
 }
 
+@media (min-width: 1024px) {
+    .code-snippet {
+        width: ${this.desktopWidth};
+    }
+}
 </style>
 
 <div class="code-snippet">
@@ -84,10 +89,6 @@ export default class CodeWriterComponent extends WriterComponent {
 
   get language() {
     return this.getAttribute("language") ?? null;
-  }
-
-  get snippetWidth() {
-    return this.getAttribute("snippet-width") ?? "45vw";
   }
 
   async connectedCallback() {
