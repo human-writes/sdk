@@ -27,7 +27,7 @@ export default class CodeWriterComponent extends WriterComponent {
     display: block;
     position: relative;
     float: left;
-    width: fit-content;
+    width: inherit;
 }
 
 .code-snippet .to-be-written {
@@ -37,7 +37,7 @@ export default class CodeWriterComponent extends WriterComponent {
 }
 
 .code-snippet .to-write {
-    width: fit-content;
+    width: inherit;
 }
 
 .code-snippet div, p, span, textarea {

@@ -9,26 +9,9 @@ export default class TextWriterComponent extends WriterComponent {
     this.shadowRoot.innerHTML = `
 <style>
 .text-snippet {
-    display: flex;
-    font-size: small;
     width: ${this.mobileWidth};
 }
 
-.text-snippet .to-be-written {
-    display: flex;
-    position: absolute;
-    width: inherit;
-}
-
-.text-snippet .to-write {
-    width: fit-content;
-}
-
-.text-snippet div, p, span, textarea {
-    -tab-size: 4;
-    -o-tab-size: 4;
-    -moz-tab-size: 4;
-}
 
 @media (min-width: 1024px) {
     .text-snippet {
