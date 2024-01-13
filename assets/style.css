@@ -1,56 +1,72 @@
 :root {
-    --snippet-width: 80vw;
-    --snippet-desktop-width: 50vw;
+    --mobile-width: 100vw;
+    --desktop-width: 50vw;
 }
 
 .code-snippet {
     display: flex;
     font-size: small;
+    width: var(--mobile-width);
 }
 
 .code-snippet .to-be-placed {
     display: block;
     position: relative;
     float: left;
+    width: inherit;
 }
 
 .code-snippet .to-place {
     display: block;
     position: relative;
     float: left;
-    width: var(--snippet-width);
+    width: fit-content;
 }
 
 .code-snippet .to-be-written {
-    display: block;
+    display: flex;
     position: absolute;
-    width: var(--snippet-width);
+    width: inherit;
 }
 
 .code-snippet .to-write {
-    width: var(--snippet-width);
+    width: fit-content;
 }
 
-.code-snippet div,
-p,
-span,
-textarea {
+.code-snippet div, p, span, textarea {
+    -tab-size: 4;
+    -o-tab-size: 4;
+    -moz-tab-size: 4;
+}
+
+.text-snippet {
+    display: flex;
+    font-size: small;
+    width: var(--mobile-width);
+}
+
+.text-snippet .to-be-written {
+    display: flex;
+    position: absolute;
+    width: inherit;
+}
+
+.text-snippet .to-write {
+    width: fit-content;
+}
+
+.text-snippet div, p, span, textarea {
     -tab-size: 4;
     -o-tab-size: 4;
     -moz-tab-size: 4;
 }
 
 @media (min-width: 1024px) {
-
-    .code-snippet .to-place {
-        width: var(--snippet-desktop-width);
+    .code-snippet {
+        width: var(--desktop-width);
     }
 
-    .code-snippet .to-be-written {
-        width: var(--snippet-desktop-width);
-    }
-
-    .code-snippet .to-write {
-        width: var(--snippet-desktop-width);
+    .text-snippet {
+        width: var(--desktop-width);
     }
 }
