@@ -97,17 +97,17 @@ onMounted(async () => {
 
     const script = doc.createElement("script");
     script.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js";
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
     doc.head.appendChild(script);
 
     const $styleList = [];
     $styleList.push(
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
     );
 
     if (props.theme !== "") {
       $styleList.push(
-          `https://highlightjs.org/static/demo/styles/${props.theme}.css`
+          `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/${props.theme}.css`
       );
     }
 
