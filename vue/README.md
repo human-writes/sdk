@@ -122,7 +122,7 @@ first child which is a **div**.
 Download the zip archive:
 
 ```sh
-wget https://github.com/ephect-io/human-writes/archive/refs/heads/main.zip
+wget https://github.com/human-writes/sdk/archive/refs/heads/main.zip
 unzip main.zip
 cd human-writes-main
 ```
@@ -130,7 +130,7 @@ cd human-writes-main
 or clone the repo as anonymous:
 
 ```sh
-git clone https://github.com/ephect-io/human-writes.git
+git clone https://github.com/human-writes/sdk.git
 cd human-writes
 ```
 
