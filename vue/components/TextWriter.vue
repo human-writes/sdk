@@ -12,11 +12,6 @@
 import {onMounted, ref, watch} from "vue";
 import {Writer} from "../../core/writer.js";
 
-const root = ref(null);
-const mainId = ref("");
-const paperId = ref("");
-const source = ref("");
-
 const props = defineProps({
   source: {
     default: ""
@@ -50,24 +45,32 @@ const props = defineProps({
   }
 });
 
+const root = ref(null);
+const mainId = ref("");
+const paperId = ref("");
+const source = ref("");
+
+const desktopWidth = ref(props.desktopWidth)
+const mobileWidth = ref(props.mobileWidth)
+
 mainId.value = Writer.makeId();
 paperId.value = "paper-" + mainId.value;
 
-watch(props.desktopWidth, (desktopWidth) => {
+watch(desktopWidth, (value) => {
   const doc = root.value.ownerDocument;
   const cssRoot = doc.querySelector(":root");
-  cssRoot.style.setProperty("--desktop-width", desktopWidth);
+  cssRoot.style.setProperty("--desktop-width", value);
 
-  console.log(`x is ${desktopWidth}`);
+  console.log(`x is ${value}`);
 
 });
 
-watch(props.mobileWidth, (mobileWidth) => {
+watch(mobileWidth, (value) => {
   const doc = root.value.ownerDocument;
   const cssRoot = doc.querySelector(":root");
-  cssRoot.style.setProperty("--mobile-width", mobileWidth);
+  cssRoot.style.setProperty("--mobile-width", value);
 
-  console.log(`x is ${mobileWidth}`);
+  console.log(`x is ${value}`);
 });
 
 onMounted(async () => {

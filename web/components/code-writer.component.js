@@ -102,15 +102,15 @@ export default class CodeWriterComponent extends WriterComponent {
 
       const script = document.createElement("script");
       script.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js";
       this.shadowRoot.appendChild(script);
 
       const $styleList = [];
       $styleList.push(
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
       );
       $styleList.push(
-        `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/${$theme}.css`
+        `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/${$theme}.css`
       );
 
       $styleList.forEach(($item) => {

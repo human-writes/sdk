@@ -1,4 +1,7 @@
 # CHANGELOG
+
+v0.7.24 - Get highlightJS back to 11.7.0 since 11.9.0 introduces breaking changes.
+
 v0.7.23 - Fix highlightJS theme CDN URL and upgrade it to 11.9.0 for all components.
 
 v0.7.22 - Change the git repository
