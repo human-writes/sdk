@@ -2,7 +2,7 @@
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
   "description": "Write HTML and code snippet like a human",
-  "version": "0.7.22",
+  "version": "0.7.23",
   "type": "module",
   "scripts": {
     "dev": "sh scripts/dev.sh all",
