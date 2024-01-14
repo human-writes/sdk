@@ -1,8 +1,7 @@
 # CHANGELOG
+v0.7.23 - Fix highlightJS theme CDN URL and upgrade it to 11.9.0 for all components.
 
 v0.7.22 - Change the git repository
-
-v0.7.21 - Fix highlightJS theme CDN URL and upgrade it to 11.9.0.
 
 v0.7.2 - Fix the demo dependencies and clean up the build scripts.
 
