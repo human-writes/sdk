@@ -19,11 +19,7 @@
 import {onMounted, ref, watch} from "vue";
 import {Writer} from "../../core/writer.js";
 
-const root = ref(null);
-const mainId = ref("");
-const placeholderId = ref("");
-const paperId = ref("");
-const codeId = ref("");
+
 
 const props = defineProps({
   source: {
@@ -67,28 +63,36 @@ const props = defineProps({
   }
 });
 
+const root = ref(null);
+const mainId = ref("");
+const placeholderId = ref("");
+const paperId = ref("");
+const codeId = ref("");
+
+const desktopWidth = ref(props.desktopWidth)
+const mobileWidth = ref(props.mobileWidth)
+
 mainId.value = Writer.makeId();
 placeholderId.value = "to-place-" + mainId.value;
 paperId.value = "to-write-" + mainId.value;
 codeId.value = "to-code-" + mainId.value;
 
-watch(props.desktopWidth, (desktopWidth) => {
+watch(desktopWidth, (value) => {
   const doc = root.value.ownerDocument;
   const cssRoot = doc.querySelector(":root");
-  cssRoot.style.setProperty("--desktop-width", desktopWidth);
+  cssRoot.style.setProperty("--desktop-width", value);
 
-  console.log(`x is ${desktopWidth}`);
+  console.log(`x is ${value}`);
 
 });
 
-watch(props.mobileWidth, (mobileWidth) => {
+watch(mobileWidth, (value) => {
   const doc = root.value.ownerDocument;
   const cssRoot = doc.querySelector(":root");
-  cssRoot.style.setProperty("--mobile-width", mobileWidth);
+  cssRoot.style.setProperty("--mobile-width", value);
 
-  console.log(`x is ${mobileWidth}`);
+  console.log(`x is ${value}`);
 });
-
 
 onMounted(async () => {
   const doc = root.value.ownerDocument;
@@ -97,17 +101,17 @@ onMounted(async () => {
 
     const script = doc.createElement("script");
     script.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js";
     doc.head.appendChild(script);
 
     const $styleList = [];
     $styleList.push(
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
     );
 
     if (props.theme !== "") {
       $styleList.push(
-          `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/${props.theme}.css`
+          `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/${props.theme}.css`
       );
     }
 

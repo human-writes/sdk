@@ -2,7 +2,7 @@
   "name": "human-writes",
   "packageManager": "yarn@3.5.1",
   "description": "Write HTML and code snippet like a human",
-  "version": "0.7.23",
+  "version": "0.7.24",
   "type": "module",
   "scripts": {
     "dev": "sh scripts/dev.sh all",
@@ -86,6 +86,6 @@
     "webpack-stream": "^7.0.0"
   },
   "dependencies": {
-    "highlight.js": "^11.9.0"
+    "highlight.js": "^11.7.0"
   }
 }
