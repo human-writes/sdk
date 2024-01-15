@@ -1,0 +1,55 @@
+#corpo-logo-title {
+    height: 100%;
+    width: 100%;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 2;
+
+}
+
+.title1-1 {
+    stop-color: var(--start-title-color);
+}
+
+.title1-2 {
+    stop-color: var(--final-title-color);
+}
+
+.title {
+    stroke-dasharray: var(--title-length);
+    animation: title var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.titleLow {
+    stroke-dashoffset: 0;
+    stroke-width: var(--end-title-width);
+    stroke: var(--inter-stroke-color);
+    fill-opacity: 1;
+    fill: url(#title1);
+}
+
+@keyframes title {
+    0% {
+        stroke-dashoffset: var(--title-length);
+        fill-opacity: 0;
+        stroke-opacity: 1;
+        stroke-width: var(--start-title-width);
+        stroke: white;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-opacity: 1;
+        stroke-width: var(--inter-title-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--end-title-width);
+        stroke: var(--inter-stroke-color);
+        fill-opacity: 1;
+        fill: url(#title1);
+    }
+}

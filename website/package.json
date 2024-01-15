@@ -18,7 +18,7 @@
     "pinia": "^2.1.7",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
-    "human-writes": "^0.7.24"
+    "human-writes": "file:.."
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
@@ -42,6 +42,5 @@
     "vue-tsc": "^1.8.25"
   },
   "resolutions": {
-    "human-writes": "file:../sdk"
   }
 }

@@ -1,10 +1,5 @@
 <template>
   <MotherView>
-    <template #title>Ephect in action !</template>
-    <template #stylesheets>
-      <link href="/css/style.css" rel="stylesheet" />
-    </template>
-
     <div class="content">
       <div class="workspace">
         <Title />

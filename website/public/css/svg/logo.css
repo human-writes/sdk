@@ -1,0 +1,485 @@
+#corpo-logo {
+    height: 100%;
+    width: 100%;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 2;
+}
+
+#slogan {
+    height: 50%;
+    width: 100%;
+}
+
+.rainbow21 {
+    stop-color: #ff4422;
+}
+
+.rainbow22 {
+    stop-color: #2244ff;
+}
+
+.rainbow23 {
+    stop-color: #8822ff;
+}
+
+.rainbow24 {
+    stop-color: #ee44cc;
+}
+
+.rainbow25 {
+    stop-color: #ffcc44;
+}
+
+.gradient1-1 {
+    stop-color: var(--final-fill-color);
+}
+
+.gradient1-2 {
+    stop-color: var(--final-serif-color);
+}
+
+.outline1 {
+    fill: white;
+    stroke: white;
+    stroke-width: 17.26px;
+}
+
+.outline2 {
+    fill: none;
+    stroke: black;
+    stroke-width: 49.02px;
+}
+
+.start-fire-1 {
+    stop-color: var(--final-serif-color);
+    stop-opacity: 1;
+}
+
+.end-fire-1 {
+    stop-color: var(--final-fill-color);
+    stop-opacity: 1;
+}
+
+.start-fire-2 {
+    stop-color: var(--final-serif-color);
+    stop-opacity: 1;
+}
+
+.end-fire-2 {
+    stop-opacity: 1;
+    stop-color: var(--final-fill-color);
+}
+
+.E {
+    stroke-dasharray: var(--E-length);
+    animation: EDash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.tilde1 {
+    stroke-dasharray: var(--tilde1-length);
+    animation: tilde1Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.tilde1-1 {
+    stroke-dasharray: var(--tilde1-length);
+    animation: tilde1Serif var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.p1 {
+    stroke-dasharray: var(--p1-length);
+    animation: p1Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.p2 {
+    stroke-dasharray: var(--p2-length);
+    animation: p2Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.h1 {
+    stroke-dasharray: var(--h1-length);
+    animation: h1Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.h2 {
+    stroke-dasharray: var(--h2-length);
+    animation: h2Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.e {
+    stroke-dasharray: var(--e-length);
+    animation: eDash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.tilde2 {
+    stroke-dasharray: var(--tilde2-length);
+    animation: tilde2Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.tilde2-1 {
+    stroke-dasharray: var(--tilde2-length);
+    animation: tilde2Serif var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.c {
+    stroke-dasharray: var(--c-length);
+    animation: eDash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.t1 {
+    stroke-dasharray: var(--t1-length);
+    animation: t1Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.t2 {
+    stroke-dasharray: var(--t2-length);
+    animation: t2Dash var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes EDash {
+    0% {
+        stroke-dashoffset: var(--E-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes tilde1Dash {
+    0% {
+        stroke-dashoffset: var(--tilde1-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 1;
+        fill: var(--inter-fill-color);
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: #ff4422;
+    }
+}
+
+@keyframes tilde1Serif {
+    0% {
+        stroke-dashoffset: var(--tilde1-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: 0;
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire3);
+    }
+}
+
+@keyframes p1Dash {
+    0% {
+        stroke-dashoffset: var(--p1-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes p2Dash {
+    0% {
+        stroke-dashoffset: var(--p2-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes h1Dash {
+    0% {
+        stroke-dashoffset: var(--h1-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes h2Dash {
+    0% {
+        stroke-dashoffset: var(--h2-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes eDash {
+    0% {
+        stroke-dashoffset: var(--e-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+
+@keyframes tilde2Dash {
+    0% {
+        stroke-dashoffset: var(--tilde2-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 1;
+        fill: var(--inter-fill-color);
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: #ff4422;
+    }
+}
+
+@keyframes tilde2Serif {
+    0% {
+        stroke-dashoffset: var(--tilde2-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: 0;
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire4);
+    }
+}
+
+
+@keyframes cDash {
+    0% {
+        stroke-dashoffset: var(--c-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes t1Dash {
+    0% {
+        stroke-dashoffset: var(--t1-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+@keyframes t2Dash {
+    0% {
+        stroke-dashoffset: var(--t2-length);
+        fill-opacity: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: var(--inter-stroke-width);
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire2);
+    }
+}
+
+
+.pathSerif {
+    animation: pathSerif var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.gradientSerif {
+    animation: gradientSerif var(--duration) linear;
+    animation-fill-mode: forwards;
+}
+
+.pathLow {
+    fill-opacity: 1;
+    fill: url(#fire2);
+    stroke-dashoffset: 0;
+    stroke-width: var(--final-stroke-width);
+}
+
+.pathSerifLow {
+    fill-opacity: 1;
+    fill: url(#fire1);
+    stroke-width: var(--final-stroke-width);
+}
+
+.tilde1Low {
+    stroke-dashoffset: 0;
+    stroke-width: var(--final-stroke-width);
+    fill-opacity: 1;
+    fill: url(#fire3);
+}
+
+.tilde2Low {
+    stroke-dashoffset: 0;
+    stroke-width: var(--final-stroke-width);
+    fill-opacity: 1;
+    fill: url(#fire4);
+}
+
+.pathGradientSerifLow {
+    stroke-dashoffset: 0;
+    stroke-width: var(--final-stroke-width);
+    fill-opacity: 1;
+    fill: url(#fire1);
+}
+
+
+@keyframes pathSerif {
+    0% {
+        fill-opacity: 0;
+        stroke-width: 0;
+    }
+    75% {
+        fill-opacity: 1;
+        fill: var(--inter-fill-color);
+        stroke-width: 0;
+    }
+    100% {
+        fill-opacity: 1;
+        fill: var(--final-serif-color);
+        stroke-width: var(--final-stroke-width);
+    }
+}
+
+@keyframes gradientSerif {
+    0% {
+        fill-opacity: 0;
+        stroke-width: 0;
+    }
+    75% {
+        stroke-dashoffset: 0;
+        fill-opacity: 0;
+        stroke-width: 0;
+        stroke: var(--inter-stroke-color);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: var(--final-stroke-width);
+        fill-opacity: 1;
+        fill: url(#fire1);
+    }
+}
+

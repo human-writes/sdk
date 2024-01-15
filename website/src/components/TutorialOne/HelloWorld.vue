@@ -2,27 +2,22 @@
   <div class="human-writes">
     <div>
       <text-writer
-        id="hello-text"
-        :make-typos="true"
-        :speed="40"
-        classes="App-content"
-        name="text-intro"
-        source="/texts/ad.html"
-        styles="/css/main.css,/css/media/desktop.css,/css/media/other.css"
-      >
-      </text-writer>
+          name="text-intro"
+          source="/texts/ad.html"
+          speed="40"
+          classes="App-content"
+          styles="/css/main.css,/css/media/desktop.css,/css/media/other.css"
+      />
     </div>
     <div>
       <code-writer
-        :make-typos="true"
-        :speed="80"
-        :use-highlight-js="true"
-        depends-on-selector="#text-intro"
-        language="php"
-        source="/snippets/hello-world.vue"
-        styles="https://code.cdn.mozilla.net/fonts/fira.css"
-      >
-      </code-writer>
+          depends-on-selector="div[name='text-intro']"
+          language="javascript"
+          source="/snippets/hello-world.vue"
+          speed="50"
+          :use-highlight-js="true"
+          styles="https://code.cdn.mozilla.net/fonts/fira.css"
+      />
     </div>
   </div>
 </template>
