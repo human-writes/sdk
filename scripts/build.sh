@@ -27,8 +27,8 @@ then
     rm -rf web/dist;
 
     echo;
-    echo "Building Vite/Vue3 demo app...";
-    cd demo;
+    echo "Building Vite/Vue3 website ...";
+    cd website;
     npm install;
     vite build;
     cd $CWD;

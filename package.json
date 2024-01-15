@@ -9,6 +9,7 @@
     "build": "sh scripts/build.sh all",
     "lint": "sh scripts/lint.sh all",
     "demo": "cd demo;vite && vue-tsc",
+    "website": "cd website;vite && vue-tsc",
     "tests": "cd demo;vitest"
   },
   "files": [
