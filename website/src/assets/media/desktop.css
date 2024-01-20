@@ -15,17 +15,16 @@
     }
 
     .placeholder {
-        height: 0;
     }
 
-    .logo {
-        width: var(--logo-size);
-        height: var(--logo-size);
-        background: var(--logo-icon) no-repeat;
-    }
 
     #corpo-logo {
         display: none;
+    }
+
+    .logo-title {
+        width: 100%;
+        height: max-content;
     }
 
     .header-space {
@@ -43,11 +42,35 @@
         height: 370px;
     }
 
+    .human-writes .div1 {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .human-writes .div2 {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+
     .workspace {
-        flex-direction: column;
+        flex-direction: row;
         display: flex;
+        min-height: var(--logo-size);
         height: max-content;
         flex-grow: 0;
+        align-items: flex-start;
+    }
+
+
+    .logo {
+        display: flex;
+        width: var(--logo-size);
+        height: var(--logo-size);
+        background: var(--logo-icon) no-repeat;
+    }
+
+    #title {
+        display: flex;
+        height: 65px;
+        max-height: 65px;
     }
 
     .content.splash {
@@ -67,10 +90,7 @@
         height: 0;
     }
 
-    #title {
-        height: 65px;
-        max-height: 65px;
-    }
+
 
     .logo.splash {
         width: 50%;

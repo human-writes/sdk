@@ -1,15 +1,14 @@
 <template>
   <div class="human-writes">
-    <div>
+    <div class="div1">
       <text-writer
           name="text-intro"
           source="/texts/ad.html"
           speed="40"
           classes="App-content"
-          styles="/css/main.css,/css/media/desktop.css,/css/media/other.css"
       />
     </div>
-    <div>
+    <div class="div2">
       <code-writer
           depends-on-selector="div[name='text-intro']"
           language="javascript"
