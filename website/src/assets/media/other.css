@@ -8,8 +8,9 @@
         display: flex;
         flex-direction: column;
         height: max-content;
-        margin: 0 auto;
-        width: 30%;
+        width: 100%;
+        align-items: center;
+        align-content: flex-start;
     }
 
     .content2 {
@@ -62,22 +63,26 @@
         min-height: var(--logo-size);
         height: max-content;
         flex-grow: 0;
+        align-items: flex-start;
     }
 
     .logo {
+        display: flex;
         width: var(--logo-size);
         min-width: var(--logo-size);
         height: var(--logo-size);
         background: var(--logo-icon) no-repeat;
-        display: flex;
         flex-grow: 1;
     }
 
     #title {
         display: flex;
-        height: 65px;
-        max-height: 65px;
-        display: flex;
+        height: 64px;
+        min-height: 64px;
+        max-height: 64px;
+        width: 400px;
+        min-width: 400px;
+        max-width: 400px;
     }
 
     .content.splash {
@@ -85,7 +90,7 @@
         flex-direction: column;
         height: 100%;
         width: 80%;
-        margin: 25% auto ;
+        margin: 25% auto;
     }
 
     .placeholder.splash {
@@ -114,7 +119,6 @@
         width: 0;
         height: 100%;
     }
-
 
 
 }
