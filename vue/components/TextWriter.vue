@@ -38,10 +38,10 @@ const props = defineProps({
     default: false
   },
   desktopWidth: {
-    default: "50vw"
+    default: "100%"
   },
   mobileWidth: {
-    default: "100vw"
+    default: "100%"
   }
 });
 

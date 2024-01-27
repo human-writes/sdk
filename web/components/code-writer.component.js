@@ -20,20 +20,11 @@ export default class CodeWriterComponent extends WriterComponent {
     display: block;
     position: relative;
     float: left;
-    width: inherit;
-}
-
-.code-snippet .to-place {
-    display: block;
-    position: relative;
-    float: left;
-    width: inherit;
+    width: 100%;
 }
 
 .code-snippet .to-be-written {
-    display: flex;
     position: absolute;
-    width: inherit;
 }
 
 .code-snippet .to-write {

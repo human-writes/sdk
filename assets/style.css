@@ -1,6 +1,6 @@
 :root {
-    --mobile-width: 100vw;
-    --desktop-width: 50vw;
+    --mobile-width: 100%;
+    --desktop-width: 100%;
 }
 
 .code-snippet {
@@ -13,24 +13,15 @@
     display: block;
     position: relative;
     float: left;
-    width: inherit;
-}
-
-.code-snippet .to-place {
-    display: block;
-    position: relative;
-    float: left;
-    width: fit-content;
+    width: 100%;
 }
 
 .code-snippet .to-be-written {
-    display: flex;
     position: absolute;
-    width: inherit;
 }
 
 .code-snippet .to-write {
-    width: fit-content;
+    width: inherit;
 }
 
 .code-snippet div, p, span, textarea {
@@ -46,9 +37,7 @@
 }
 
 .text-snippet .to-be-written {
-    display: flex;
     position: absolute;
-    width: inherit;
 }
 
 .text-snippet .to-write {

@@ -136,7 +136,7 @@ export class Writer {
 
         function makeEmptyText(text) {
             const lines = text.split("\n");
-            return "<br />\n".repeat(lines.length);
+            return "<br />\n".repeat(lines.length + 1);
         }
 
         async function loadText(url) {

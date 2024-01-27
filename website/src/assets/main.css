@@ -11,8 +11,11 @@
     --t1-length: 0;
     --t2-length: 0;
     --duration: 4s;
-    --logo-size: 48px;
     --logo-icon: url("/logos/icon-48.webp");
+    --logo-size: 48px;
+    --logo-max-size: 64px;
+    --logo-desktop-banner-width: 400px;
+    --logo-mobile-banner-width: 311px;
     --fore-color: black;
     --background-color: #e7e7e7;
     --inter-fill-color: #7C00A4;

@@ -48,11 +48,11 @@ export default class WriterComponent extends HTMLElement {
   }
 
   get desktopWidth() {
-    return this.getAttribute("desktop-width") ?? "50vw";
+    return this.getAttribute("desktop-width") ?? "100%";
   }
 
   get mobileWidth() {
-    return this.getAttribute("mobile-width") ?? "100vw";
+    return this.getAttribute("mobile-width") ?? "100%";
   }
 
   async connectedCallback() {

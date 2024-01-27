@@ -78,12 +78,12 @@
 
     #title {
         display: flex;
-        height: 64px;
-        min-height: 64px;
-        max-height: 64px;
-        width: 311px;
-        min-width: 311px;
-        max-width: 311px;
+        height: var(--logo-max-size);
+        min-height: var(--logo-max-size);
+        max-height: var(--logo-max-size);
+        width: var(--logo-mobile-banner-width);
+        min-width: var(--logo-mobile-banner-width);
+        max-width: var(--logo-mobile-banner-width);
     }
 
     .content.splash {
