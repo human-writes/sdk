@@ -59,7 +59,7 @@ export default class WriterComponent extends HTMLElement {
     /**
      * The magic starts here
      */
-    if (this.styles !== null && this.classes !== null) {
+    if (this.styles !== null) {
       const $styleList = this.styles.split(",");
 
       $styleList.forEach(($item) => {
@@ -71,9 +71,8 @@ export default class WriterComponent extends HTMLElement {
 
       const parentDiv = this.shadowRoot.querySelector(".to-write");
       let parentClass = parentDiv.getAttribute("class");
-      parentClass += " " + this.classes;
+      parentClass += " " + this.classes ?? "";
 
-      console.log({parentClass});
       parentDiv.setAttribute("class", parentClass);
     }
 
@@ -85,7 +84,7 @@ export default class WriterComponent extends HTMLElement {
           component.tagName === "CODE-WRITER")
       ) {
         // Options for the observer (which mutations to observe)
-        const config = {attributes: true};
+        const config = { attributes: true };
 
         // Callback function to execute when mutations are observed
         // Create an observer instance linked to the callback function
